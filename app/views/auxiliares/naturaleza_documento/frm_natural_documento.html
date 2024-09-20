@@ -1,0 +1,26 @@
+<form name="frm_natural_doc"  novalidate ng-submit="guardarFrm(datos)">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">{{frm_title}}</h4></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group" data-ng-class="{'has-error': frm_natural_doc.medio_recepcion.$invalid }">
+                    <label class="control-label" for="medio_recepcion">Medio recepción</label>
+                    <input class="form-control input-sm" ng-minlength="2" name="medio_recepcion"
+                           id="medio_recepcion" type="text" ng-required="true" ng-model="datos.medio_recepcion"  />
+                </div>
+            </div>
+            <div class="col-sm-20">
+                <div class="form-group " data-ng-class="{'has-error': frm_natural_doc.descripcion_medio.$invalid }">
+                    <label class="control-label" for="descripcion_medio">Descripción</label>
+                    <textarea class="form-control input-sm" style="resize: none;" rows="2" id="descripcion_medio"
+                              name="descripcion_medio" ng-model="datos.descripcion_medio" ng-minlength="5"></textarea>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>
+
+

@@ -1,0 +1,22 @@
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    <li role="presentation" ng-class="{active:activetab=='tabinfo'}">
+        <a ui-sref="app.ges_documento.tabInfo" role="tab" data-toggle="tab">Detalles</a>
+    </li>
+    <li role="presentation" ng-class="{active:activetab=='tabasignacion'}">
+        <a ui-sref="app.ges_documento.tabAsigna" role="tab" data-toggle="tab">Asignación</a>
+    </li>
+    <li role="presentation" ng-class="{active:activetab=='tabsegmiento'}">
+        <a ui-sref="app.ges_documento.tabSeguimiento" role="tab" data-toggle="tab">Seguimiento</a>
+    </li>
+    <li role="presentation" ng-class="{active:activetab=='tabanexos'}">
+        <a ui-sref="app.ges_documento.tabAnexos" role="tab" data-toggle="tab">Documentos Anexos</a>
+    </li>
+    <li role="presentation" ng-class="{active:activetab=='tabhistorial'}">
+        <a ui-sref="app.ges_documento.tabHistorial({tab:'tabhistorial'})" role="tab" data-toggle="tab">Historial</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active">
+        <div ui-view></div>
+    </div>
+</div>

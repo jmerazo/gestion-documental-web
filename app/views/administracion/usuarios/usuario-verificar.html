@@ -1,0 +1,58 @@
+<div class="usuarios-verificar" ng-controller="UsuariosVerificarController as vm">
+    <h3>Usuarios Pendientes de Verificación</h3>
+    
+    <div class="panel panel-default" ng-if="!vm.loading">
+        <div class="panel-heading">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Buscar por nombre o correo" ng-model="vm.searchQuery">
+                <span class="input-group-btn">
+                    <button class="btn btn-info" type="button" ng-click="vm.buscar()">
+                        <i class="fa fa-search"></i> Buscar
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div ng-if="vm.users.length === 0">
+                <p>No hay usuarios pendientes de verificación.</p>
+            </div>
+            <div ng-if="vm.users.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Correo Electrónico</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in vm.users | filter:vm.searchQuery">
+                            <td>{{ user.nombres }}</td>
+                            <td>{{ user.apellidos }}</td>
+                            <td>{{ user.mail_user }}</td>
+                            <td>
+                                <button class="btn btn-success btn-xs" ng-click="vm.activarUsuario(user)">
+                                    Activar
+                                </button>
+                                <button class="btn btn-warning btn-xs" ng-click="vm.rechazarUsuario(user)">
+                                    Rechazar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel-footer" ng-if="vm.users.length > 0">
+            <ul uib-pagination total-items="vm.totalItems" ng-model="vm.currentPage" max-size="5" boundary-links="true" 
+                items-per-page="vm.itemsPerPage" ng-change="vm.pageChanged()"></ul>
+        </div>
+    </div>
+
+    <div class="loading" ng-if="vm.loading">
+        <p>Cargando usuarios pendientes...</p>
+    </div>
+</div>

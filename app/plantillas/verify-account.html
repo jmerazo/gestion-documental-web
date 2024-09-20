@@ -1,0 +1,94 @@
+<div class="confirmation" ng-controller="VerifyController as vm">
+    <div class="confirmation__grid">
+        <div class="confirmation__content">
+            <h1>{{ vm.verificationStatus }}</h1>
+            <p>Recuerda que tu perfil está siendo analizado para la asignación del rol.</p>
+            <button class="govco-button" ng-click="vm.goHome()">Volver al inicio</button>
+        </div>
+        <div class="image">
+            <img src="/app/img/verify-account.png" alt="img-verify">
+        </div>
+    </div>
+</div>
+
+<style scoped>
+.confirmation {
+    margin: 0 auto;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+    transition: all .3s ease-in-out;
+    height: 100vh; /* Altura completa de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.confirmation__content h1 {
+    color: var(--gris);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation__content p span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.govco-button {
+    background-color: #005bac; /* Color azul GOV.CO */
+    border: none;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.govco-button:hover {
+    background-color: #003f88; /* Color más oscuro al pasar el cursor */
+}
+
+.confirmation__grid .image {
+    margin-top: 1rem;
+}
+
+.confirmation__grid .image img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+}
+
+@media (min-width: 768px) {
+    .confirmation {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .confirmation__grid {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        gap: 2rem;
+        margin-top: 8rem;
+        align-items: start;
+    }
+
+    .confirmation__content h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .confirmation__grid .image img {
+        max-width: 100%;
+    }
+}
+</style>

@@ -1,0 +1,244 @@
+<h3>
+    Generar listado de radicados</span>
+</h3>
+<style>
+    tr.jqgrow td {
+        overflow: hidden;
+        white-space: pre;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-20">
+        <div class="panel panel-default">
+            <div class="panel-heading bordered-bottom-1 bordered-darkgray pb">
+                <form name="frmSearch" ng-submit="buscar()">
+                    <div class="row">
+
+ <!--                       <div class="col-md-3">
+                            <div class="form-group form-group-sm">
+                                <ui-select ng-model="replist.filtroFomr.tiptc" theme="bootstrap"
+                                           on-select="buscar()">
+                                    <ui-select-match allow-clear="true" placeholder="Filtrar por categoria">
+                                        {{$select.selected.nom}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="person.id as person in GestioDoc.listCategorias">
+                                        <div ng-bind-html="person.nom | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+-->
+                        <!--Por Secretaria/dependencia-->
+                        <div class="col-md-3">
+                            <div class="input-group input-group-sm">
+                                <select class="form-control" ng-model="replist.filtroFomr.oficina"
+                                        ng-options="otros.id as otros.nom group by otros.padre for otros in GestioDoc.listOficinas"
+                                        ng-change="buscar()">
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"
+                                            ng-click="GesDoc.filtroFomr.oficina=null;buscar()">
+                                        <i class="fa fa-trash red"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                <ui-select ng-model="replist.filtroFomr.tiptd" theme="bootstrap"
+                                           reset-search-input="false" input-id="ide_tipo_documental"
+                                           on-select="buscar()">
+                                    <ui-select-match allow-clear="true" placeholder="Filtrar por tipo documento">
+                                        {{$select.selected.nom | capitalize}}
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="tipo_doc.id as tipo_doc in GestioDoc.listTipoDocs | filter: $select.search">
+                                        <div ng-bind-html="tipo_doc.nom|capitalize | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice>
+                                        No pudimos encontrar ninguna elección...
+                                    </ui-select-no-choice>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group form-group-sm">
+                                <select class="form-control" ng-model="replist.filtroFomr.otrofil"
+                                        ng-options="otros.id     as otros.nom for otros in GestioDoc.otrosFiltros"
+                                        ng-change="buscar()">
+                                    <option>Otros filtros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="fecha_inicio" id="fecha_inicio"
+                                           class="form-control input-sm"
+                                           data-ng-model="replist.filtroFomr.fecInicio"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           ng-required="false"
+                                           ng-change="changeFecInicio(replist.filtroFomr.fecInicio)"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha inicial"/>
+                                    <span class="input-group-btn">
+                                     <button class="btn btn-default" type="button" ng-click="open($event)">
+                                        <em class="fa fa-calendar"></em>
+                                     </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="fecha_final" id="fecha_final"
+                                           class="form-control input-sm"
+                                           data-ng-model="replist.filtroFomr.fecFin"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="openedFin" datepicker-options="dateOptionsFecLim"
+                                           ng-required="false"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha final"/>
+                                    <span class="input-group-btn">
+                                         <button class="btn btn-default" type="button" ng-click="openFin($event)">
+                                            <em class="fa fa-calendar"></em>
+                                         </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Filtrar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group form-group-sm">
+                                <ui-select ng-model="replist.filtroFomr.parambus.nomcmp" theme="bootstrap"
+                                           on-select="">
+                                    <ui-select-match allow-clear="true" placeholder="Buscar por...">
+                                        {{$select.selected.title}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="campo.cmp as campo in GestioDoc.cmpBusqueda">
+                                        <div ng-bind-html="campo.title | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7" ng-show="replist.filtroFomr.parambus.nomcmp">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" ng-model="replist.filtroFomr.parambus.valbus"/>
+                                <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info"><i class="fa fa-search"></i> Buscar</button>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div uib-dropdown="dropdown" class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-warning" ng-click="replist.exportarXls()">
+                                    <i class="fa fa-print"></i>&nbsp;Exportar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+
+            <div class="panel-body " ng-class="{'whirl traditional':GestioDoc.loading}">
+                <div class="table-scrollable">
+                    <table id="pagGestioDoc"
+                           class="table table-responsive table-striped table-bordered table-hover"
+                           style="table-layout:fixed">
+                        <thead class="">
+                        <tr>
+                            <th style="width: 135px" ng-click='orden("cod_radicado")'>Nro. Radiacdo
+                                <i class="fa pull-right"
+                                   data-ng-class="{'fa-caret-down':GestioDoc.orden,'fa-caret-up':!GestioDoc.orden}"
+                                   data-ng-show="GestioDoc.cmp_orden=='cod_radicado'"></i>
+                            </th>
+                            <th style="width: 125px" ng-click='orden("fecha_radicado")'>Fec. Radicado
+                                <i class="fa pull-right"
+                                   data-ng-class="{'fa-caret-down':GestioDoc.orden,'fa-caret-up':!GestioDoc.orden}"
+                                   data-ng-show="GestioDoc.cmp_orden=='fecha_radicado'"></i>
+                            </th>
+                            <th style="width: 130px">Tipo Documento</th>
+                            <th style="width: 320px">Asunto</th>
+                            <th style="width: 320px">Origen</th>
+                            <th style="width: 320px">Destino</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="reg in GestioDoc.dtsPagina |filter:search" class="jqgrow">
+                            <td>
+                                {{reg.cod_radicado}}
+                            </td>
+                            <td>
+                                {{reg.fecha_radicado}}
+                            </td>
+                            <td>{{reg.tipo_doc}}</td>
+                            <td style="white-space: pre-wrap">{{reg.asunto}}</td>
+                            <td>
+                                <div ng-if="reg.tipo_rad==1">
+                                    {{(reg.dts_tercero.nombre.trim().length > 0 ? reg.dts_tercero.nombre : '') }}
+                                    <br ng-if=" reg.dts_tercero.nombre.trim().length>0 && reg.dts_tercero.entidad.trim().length>0">
+                                    {{(reg.dts_tercero.entidad.trim().length > 0 ? reg.dts_tercero.entidad : '') | capitalize
+                                    }}
+                                </div>
+
+                                <!--DTS Salida-->
+                                <div ng-if="reg.tipo_rad==2">{{reg.nom_fun_origen | capitalize}}
+                                </div>
+                            </td>
+
+                            <td>
+                                <!--DTS Entrada-->
+                                <div ng-if="reg.tipo_rad==1">
+                                    {{reg.nom_fun_destino | capitalize}}
+                                    <br>
+                                    {{(reg.nom_off_destino.trim().length > 0 ? reg.nom_off_destino : '') | capitalize
+                                    }}
+
+                                </div>
+                                <!--DTS Salida-->
+                                <div ng-if="reg.tipo_rad==2">
+                                    {{reg.dts_tercero.nombre | capitalize}}
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-20">
+                        <ul uib-pagination ng-change="pageChanged()" total-items="GestioDoc.totRegistros"
+                            ng-model="GestioDoc.pag_actual" max-size="4"
+                            items-per-page="GestioDoc.items_por_page"
+                            class="pagination-sm pull-right" boundary-links="true" previous-text="Ant."
+                            next-text="Sig."></ul>
+                        <div class="btn-group btn-group-sm pull-right">
+                            <button type="button" class="btn btn-default" ng-click="reloadGrid()"><i
+                                    class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

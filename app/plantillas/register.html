@@ -1,0 +1,213 @@
+<div class="register-container">
+    <div class="register-wrapper" ng-controller="RegisterFormController as vm">
+        <div class="register-panel">
+            <div class="register-logo">
+                <a href="#">
+                    <img src="app/img/gesdoc_v2.png" alt="Logo" />
+                </a>
+            </div>
+            <div class="register-body">
+                <p class="register-title">REGISTRARSE</p>
+                <form class="register-form" name="vm.registerForm" novalidate ng-submit="vm.register()">
+                    <div class="form-group">
+                        <input type="text" name="documento" placeholder="Nro. Documento" ng-model="vm.account.documento" required />
+                        <span class="form-icon fa fa-user"></span>
+                        <span class="text-danger" ng-show="vm.registerForm.documento.$dirty && vm.registerForm.documento.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="nombres" placeholder="Nombres" ng-model="vm.account.nombres" required />
+                        <span class="form-icon fa fa-user"></span>
+                        <span class="text-danger" ng-show="vm.registerForm.nombres.$dirty && vm.registerForm.nombres.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="apellidos" placeholder="Apellidos" ng-model="vm.account.apellidos" required />
+                        <span class="form-icon fa fa-user"></span>
+                        <span class="text-danger" ng-show="vm.registerForm.apellidos.$dirty && vm.registerForm.apellidos.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="account_email" placeholder="Correo Electrónico" ng-model="vm.account.email" required />
+                        <span class="form-icon fa fa-envelope"></span>
+                        <div ng-show="vm.registerForm.account_email.$dirty && vm.registerForm.account_email.$invalid">
+                            <span class="text-danger" ng-show="vm.registerForm.account_email.$error.required">Este campo es requerido</span>
+                            <span class="text-danger" ng-show="vm.registerForm.account_email.$error.email">Correo electrónico no es válido</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="account_password" placeholder="Contraseña" ng-model="vm.account.password" required />
+                        <span class="form-icon fa fa-lock"></span>
+                        <span class="text-danger" ng-show="vm.registerForm.account_password.$dirty && vm.registerForm.account_password.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="account_password_confirm" placeholder="Confirmar Contraseña" ng-model="vm.account.passwordConfirm" required />
+                        <span class="form-icon fa fa-lock"></span>
+                        <div ng-show="vm.registerForm.account_password_confirm.$dirty">
+                            <span class="text-danger" ng-show="vm.registerForm.account_password_confirm.$error.required">Este campo es requerido</span>
+                            <span class="text-danger" ng-show="vm.account.password !== vm.account.passwordConfirm">Las contraseñas no coinciden</span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="vm.listDependencias.length > 0">
+                        <ui-select name="dependencia" ng-model="vm.account.dependencia" theme="bootstrap" on-select="vm.account.dependencia_id = $select.selected.id" search-enabled="true">
+                            <ui-select-match placeholder="Seleccione una dependencia...">
+                                {{$select.selected.nom}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="dependencia in vm.listDependencias | filter: $select.search">
+                                <span ng-bind="dependencia.nom"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="text-danger" ng-show="vm.registerForm.dependencia.$touched && !vm.account.dependencia">
+                            Este campo es requerido.
+                        </span>
+                    </div>                                                                             
+                    <button class="btn-register" type="submit">Registrarse</button>
+                </form>
+                <div class="text-center mt-lg">
+                    <p>¿Ya tienes una cuenta? <a class="text-primary" ui-sref="page.login">Inicia sesión aquí</a></p>
+                </div>
+                <div class="alert alert-danger text-center" ng-show="vm.authMsg">{{ vm.authMsg }}</div>
+            </div>
+        </div>
+        <div class="register-footer">
+            <span>&copy;</span>
+            <span ng-bind="app.year"></span>
+            <span>-</span>
+            <span ng-bind="app.name"></span>
+            <br />
+            <span ng-bind="app.description"></span>
+        </div>
+    </div>
+</div>
+
+<style scoped>
+/* Contenedor principal */
+.register-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Envoltura del registro */
+.register-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 90%;
+    border-radius: 15px;
+}
+
+/* Panel de registro */
+.register-panel {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Logo */
+.register-logo {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.register-logo img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+/* Cuerpo del registro */
+.register-body {
+    padding-top: 10px;
+}
+
+.register-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+.register-form .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.register-form input {
+    width: 100%;
+    border-radius: 15px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+}
+
+.register-form .form-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.text-danger {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Botón de registro */
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-register:hover {
+    background-color: #0056b3;
+}
+
+/* Enlace a iniciar sesión */
+.text-center.mt-lg {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.text-center.mt-lg a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center.mt-lg a:hover {
+    text-decoration: underline;
+}
+
+/* Pie de página */
+.register-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.ui-select-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.ui-select-match {
+    background-color: #fff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+</style>

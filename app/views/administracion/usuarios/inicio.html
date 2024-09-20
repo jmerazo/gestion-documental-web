@@ -1,0 +1,100 @@
+<h3>
+    Administración - <span class="text-thin">Usuarios</span>
+</h3>
+<div class="col-lg-20">
+    <div class="panel panel-default">
+        <div class="panel-heading bordered-bottom-1 bordered-darkgray pb">
+            <div class="row">
+                <form ng-submit="buscar()">
+                    <div class="col-sm-16">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" ng-model="filtroFomr.parambus.valbus">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-info" ng-click="buscar()">
+                                    <i class="fa fa-search"></i> Buscar
+                                </button>
+                             </span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="nuevoRegistro()"><i
+                                class="fa fa-plus"></i> Nuevo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel-body " ng-class="{'whirl traditional':user.loading}">
+            <div class="table-responsive">
+                <table class="table  table-striped table-bordered ">
+                    <thead class="">
+                    <tr>
+                        <th ng-click='orden("nombres")'>Nombres y apellidos
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':user.orden,'fa-caret-up':!user.orden}"
+                               data-ng-show="user.cmp_orden=='nombres'"></i>
+                        </th>
+                        <th ng-click='orden("login")'>Usuario
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':user.orden,'fa-caret-up':!user.orden}"
+                               data-ng-show="user.cmp_orden=='login'"></i>
+                        </th>
+                        <th ng-click='orden("nombre_rol")'>Rol
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':user.orden,'fa-caret-up':!user.orden}"
+                               data-ng-show="user.cmp_orden=='nombre_rol'"></i>
+                        </th>
+                        <th ng-click='orden("mail_user")'>Correo electrónico
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':user.orden,'fa-caret-up':!user.orden}"
+                               data-ng-show="user.cmp_orden=='mail_user'"></i>
+                        </th>
+                        <th width='135px' class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="reg in user.dtsPagina |filter:search">
+                        <td>{{reg.nombres}} {{reg.apellidos}}</td>
+                        <td>{{reg.login}}</td>
+                        <td>{{reg.nombre_rol}}</td>
+                        <td>{{reg.mail_user}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-darkpink btn-xs icon-only white" uib-tooltip='Configuración'
+                                    data-ng-click="fnCoinfigUser(reg)"><i class="fa fa-cogs"></i></button>
+                            <button class="btn btn-lightred btn-xs icon-only white" uib-tooltip='Permisos'
+                                    data-ng-click="fnPermisos(reg)"><i class="fa fa-lock"></i></button>
+                            <button class="btn btn-purple btn-xs icon-only white"
+                                    uib-tooltip="Cambiar contraseña" data-ng-click="fnChangePass(reg)"><i
+                                    class="fa fa-key"></i>
+                            </button>
+                            <button uib-tooltip="Editar" class="btn btn-sm btn-info" ng-click="editarFrm(reg)">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button uib-tooltip="Eliminar" class="btn btn-sm btn-warning" ng-click="eliminar(reg.pk)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-20">
+                    <ul uib-pagination ng-change="pageChanged()" total-items="user.totRegistros"
+                        ng-model="user.pag_actual" max-size="4" items-per-page="user.items_por_page"
+                        class="pagination-sm pull-right" boundary-links="true" previous-text="Ant."
+                        next-text="Sig."></ul>
+                    <div class="btn-group btn-group-sm pull-right">
+                        <button type="button" class="btn btn-default" ng-click="reloadGrid()"><i
+                                class="fa fa-refresh"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,133 @@
+<form name="frm_terceros" novalidate ng-submit="guardarFrm(datos)">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">{{frm_title}}</h4></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group ">
+                    <label class="control-labe" for="tipo_tercero">Tipo Tercero </label>
+                    <select id="tipo_tercero" name="tipo_tercero" class="form-control input-sm"
+                            ng-options="tipo.nom for tipo in TipoTercero"
+                            ng-required="true"
+                            ng-model="dstTerceros"
+                            ng-change="datos.tipo_tercero=dstTerceros.nom">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group " data-ng-class="{'has-error': frm_terceros.ide_tipo_identf.$invalid }">
+                    <label class="control-labe" for="ide_tipo_identf">Tipo identificación </label>
+                    <select id="ide_tipo_identf" name="ide_tipo_identf" class="form-control input-sm"
+                            ng-options="ide_tipo_identf.nom for ide_tipo_identf in list_tipo_identificacion"
+                            ng-required="true"
+                            ng-model="dstTerceros2"
+                            ng-change="datos.ide_tipo_identf=dstTerceros2.id">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group ">
+                    <label class="control-label" for="nit_tercero">Nro. identificación</label>
+                    <input class="form-control input-sm" name="nit_tercero" type="text"
+                           id="nit_tercero" ng-model="datos.nit_tercero"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group" data-ng-class="{'has-error': frm_terceros.nom_entidad.$invalid }"
+                     ng-show="frm_terceros.tipo_tercero.$viewValue.nom!=='Persona natural'">
+                    <label class="control-label" for="nom_entidad">Nombre empresa</label>
+                    <input class="form-control input-sm" name="nom_entidad" type="text"
+                           id="nom_entidad" ng-model="datos.nom_entidad"
+                           ng-required="frm_terceros.tipo_tercero.$viewValue.nom!=='Persona natural'"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_terceros.nombres_tercero.$invalid }">
+                    <label class="control-label" for="nombres_tercero">Nombres</label>
+                    <input class="form-control input-sm" name="nombres_tercero" id="nombres_tercero"
+                           type="text"
+                           ng-minlength="2" ng-required="frm_terceros.tipo_tercero.$viewValue.nom==='Persona natural'"
+                           ng-model="datos.nombres_tercero"/>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group " data-ng-class="{'has-error': frm_terceros.apellidos_tercero.$invalid }">
+                    <label class="control-label" for="apellidos_tercero">Apellidos</label>
+                    <input class="form-control input-sm" name="apellidos_tercero"
+                           id="apellidos_tercero" type="text"
+                           ng-minlength="2" ng-required="frm_terceros.tipo_tercero.$viewValue.nom==='Persona natural'"
+                           ng-model="datos.apellidos_tercero"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group " data-ng-class="{'has-error': frm_terceros.tel_fijo_tercero.$invalid }">
+                    <label class="control-label" for="tel_fijo_tercero">Telefono</label>
+                    <input class="form-control input-sm" name="tel_fijo_tercero"
+                           id="tel_fijo_tercero" type="text"
+                           ng-minlength="8" ng-model="datos.tel_fijo_tercero"/>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group " data-ng-class="{'has-error': frm_terceros.cel_fijo_tercero.$invalid }">
+                    <label class="control-label" for="cel_fijo_tercero">Celular</label>
+                    <input class="form-control input-sm" name="cel_fijo_tercero"
+                           id="cel_fijo_tercero" type="text"
+                           ng-minlength="10" ng-maxlength="25" ng-model="datos.cel_fijo_tercero"
+                    />
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group " data-ng-class="{'has-error': frm_terceros.mail_tercero.$invalid }">
+                    <label class="control-label" for="mail_tercero">Correo electrónico</label>
+                    <input class="form-control input-sm" name="mail_tercero"
+                           id="mail_tercero" type="email"
+                           ng-model="datos.mail_tercero" ng-required=""/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group form-group-sm">
+                    <!-- <label class="control-label" for="ide_divipola_tercero">Municipio de residencia</label> -->
+                    <label class="control-label">Municipio de residencia</label>
+                    <ui-select ng-model="dtsMunicipios" theme="bootstrap"
+                               on-select="selectXyz($item, $model)"
+                               ng-disabled="uisel.disabled" reset-search-input="false"
+                               input-id="ide_divipola_tercero">
+                        <ui-select-match placeholder="Busque un Municipio de residencia">
+                            {{$select.selected.nom|capitalize}}
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="municipio in listMunicipios | filter: $select.search"
+                                refresh-delay="1000" minimum-input-length="2">
+                            <div ng-bind-html="municipio.nom|capitalize | highlight: $select.search"></div>
+                        </ui-select-choices>
+                        <ui-select-no-choice>
+                            No pudimos encontrar ninguna elección...
+                        </ui-select-no-choice>
+
+                    </ui-select>
+
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group ">
+                    <label class="control-label" for="direccion_tercero">Dirección </label>
+                    <input class="form-control input-sm" name="direccion_tercero"
+                           id="direccion_tercero" type="text"
+                           ng-model="datos.direccion_tercero" ng-minlength="3"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>
+

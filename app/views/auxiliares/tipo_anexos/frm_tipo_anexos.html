@@ -1,0 +1,26 @@
+<form name="frm_tipo_documento" novalidate ng-submit="guardarFrm(datosAnexo)">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">{{frm_title}}</h4></div>
+
+    <div class="modal-body">
+
+
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group" data-ng-class="{'has-error': frm_tipo_documento.tipo_anexo.$invalid }">
+                    <label class="control-label" for="tipo_anexo">Nombre</label>
+                    <input class="form-control input-sm" ng-minlength="2" name="tipo_anexo"
+                           id="tipo_anexo" type="text" ng-required="true" ng-model="datosAnexo.tipo_anexo"/>
+                </div>
+            </div>
+            <div class="col-sm-20">
+                <div class="form-group ">
+                    <label class="control-label">Descripción</label>
+                    <textarea class="form-control input-sm" name="descripcion_tipo"
+                              ng-model="datosAnexo.observaciones_tipo_anexo"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>

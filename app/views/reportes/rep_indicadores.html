@@ -1,0 +1,117 @@
+<h3>
+    Generar reporte para indicadores</span>
+</h3>
+<style>
+    tr.jqgrow td {
+        overflow: hidden;
+        white-space: pre;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-6">
+        <div class="panel panel-default">
+            <div class="panel-heading bordered-bottom-1 bordered-darkgray pb">
+                <form name="frmSearch" ng-submit="buscar()">
+                    <div class="row">
+                        <div class="col-md-20">
+                            <div class="form-group form-group-sm">
+                                <ui-select ng-model="repI.filtroFomr.tiptc" theme="bootstrap"
+                                           on-select="buscar()">
+                                    <ui-select-match allow-clear="true" placeholder="Filtrar por categoria">
+                                        {{$select.selected.nom}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="person.id as person in GestioDoc.listCategorias">
+                                        <div ng-bind-html="person.nom | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-md-20">
+                            <div class="form-group form-group-sm">
+                                <ui-select ng-model="repI.filtroFomr.tiptd" theme="bootstrap"
+                                           reset-search-input="false" input-id="ide_tipo_documental"
+                                           on-select="buscar()">
+                                    <ui-select-match allow-clear="true" placeholder="Filtrar por tipo documento">
+                                        {{$select.selected.nom | capitalize}}
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                        repeat="tipo_doc.id as tipo_doc in GestioDoc.listTipoDocs | filter: $select.search">
+                                        <div ng-bind-html="tipo_doc.nom|capitalize | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice>
+                                        No pudimos encontrar ninguna elección...
+                                    </ui-select-no-choice>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-20">
+                            <div class="form-group form-group-sm">
+                                <select class="form-control" ng-model="repI.filtroFomr.otrofil"
+                                        ng-options="otros.id     as otros.nom for otros in GestioDoc.otrosFiltros"
+                                        ng-change="buscar()">
+                                    <option>Otros filtros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-20">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="fecha_inicio" id="fecha_inicio"
+                                           class="form-control input-sm"
+                                           data-ng-model="repI.filtroFomr.fecInicio"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           ng-required="false"
+                                           ng-change="changeFecInicio(repI.filtroFomr.fecInicio)"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha inicial"/>
+                                    <span class="input-group-btn">
+                                     <button class="btn btn-default" type="button" ng-click="open($event)">
+                                        <em class="fa fa-calendar"></em>
+                                     </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-20">
+                            <div class="form-group form-group-sm">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="fecha_final" id="fecha_final"
+                                           class="form-control input-sm"
+                                           data-ng-model="repI.filtroFomr.fecFin"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="openedFin" datepicker-options="dateOptionsFecLim"
+                                           ng-required="false"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha final"/>
+                                    <span class="input-group-btn">
+                                         <button class="btn btn-default" type="button" ng-click="openFin($event)">
+                                            <em class="fa fa-calendar"></em>
+                                         </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-20">
+                            <div class="col-sm-3 col-sm-offset-17">
+                                <div uib-dropdown="dropdown" class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-warning" ng-click="repI.exportarXls()">
+                                        <i class="fa fa-print"></i>&nbsp;Exportar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

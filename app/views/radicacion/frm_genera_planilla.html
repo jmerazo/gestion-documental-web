@@ -1,0 +1,47 @@
+<div>
+    <div class="modal-header">
+        Planilla de impresión
+    </div>
+    <form name="frmPrint" novalidate>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-20">
+                    <div class="form-group " data-ng-class="{'has-error': frmPrint.ide_medio_recepcion.$invalid }">
+                        <label class="control-labe" for="ide_medio_recepcion">Categoria</label>
+                        <select class="form-control input-sm" ng-required="true" id="ide_medio_recepcion"
+                                ng-model="ctPl.dtscategoria"
+                                name="ide_medio_recepcion"
+                                ng-options="categoria.nom for categoria in ctPl.listCategorias">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-20">
+                    <div class="form-group " data-ng-class="{'has-error': frmPrint.ver_como.$invalid }">
+                        <label class="control-labe" for="ide_medio_recepcion">
+                            Ver como</label>
+                        <select class="form-control input-sm" ng-required="true" id="ver_como"
+                                ng-model="ctPl.ver_reporte"
+                                name="ver_como">
+                            <option value="ver">Solo visualizar</option>
+                            <option value="list">Ver/imprimir</option>
+                            <option value="pdf">PDF</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-20">
+                    <div class="alert alert-warning" style="padding: 1px" ng-show="ctPl.ver_reporte && ctPl.ver_reporte!='ver'">
+                        <span>Esta opcion de <i>Ver/Imprimir o Pdf</i> genera un paquete de impresión</span>
+                    </div>
+                    <div class="alert alert-info" style="padding: 1px">
+                        <i>Tenga en cuenta que se imprimirán los últimos radicados de hoy que aun no se han impreso</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-include="'app/views/fragmento/btn_modal_print.html'"></div>
+    </form>
+</div>
+

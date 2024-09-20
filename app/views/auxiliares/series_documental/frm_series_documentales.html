@@ -1,0 +1,44 @@
+
+
+<form  name="frm_series"  novalidate ng-submit="guardarFrm(datos)">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">{{frm_title}}</h4></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group ">
+                    <label class="control-labe" for="cod_dependencia">Dependencia </label>
+                    <select id="cod_dependencia" name="cod_dependencia" class="form-control input-sm"
+                            ng-options="dependencia.nom for dependencia in listDependencias"
+                            ng-model="dstSeries"
+                            ng-change="datos.cod_dependencia=dstSeries.id">>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_series.nombre_serie.$invalid }">
+                    <label class="control-label" for="nombre_serie">Nombre de la serie </label>
+                    <input class="form-control input-sm" name="nombre_serie"  id="nombre_serie"
+                           type="text"
+                           ng-minlength="2" ng-required="true" ng-model="datos.nombre_serie" />
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group " >
+                    <label class="control-label" for="registro_padre">Debajo de</label>
+                    <select id="registro_padre" name="registro_padre" class="form-control input-sm"
+                            ng-options="debajode.nom for debajode in listDebajode"
+                            ng-model="dstSeries"
+                            ng-change="datos.registro_padre=dstSeries.id">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>
+

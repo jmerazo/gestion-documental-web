@@ -1,0 +1,173 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Cargar documento escaneado</h4>
+        </div>
+        <form name="frmLoadAnexos" novalidate ng-submit="guardarFrm(datos)">
+            <div class="modal-body">
+                <div nv-file-drop="" uploader="frmAnexos.uploader" filters="queueLimit, customFilter">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.id_tipo_anexo.$invalid }">
+                                    <label class="control-label" for="id_tipo_anexo">Tipo documento</label>
+                                    <select id="id_tipo_anexo" name="id_tipo_anexo"
+                                            class="form-control" ng-required="true"
+                                            ng-options="option.ide as option.nom for option in listTipoDocs"
+                                            ng-model="datos.id_tipo_anexo">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.nro_documento.$invalid }">
+                                    <label class="control-label" for="nro_documento">Número Documento</label>
+                                    <input class="form-control" name="nro_documento"
+                                           id="nro_documento" type="text" ng-model="datos.nro_documento"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.fecha_documento.$invalid }">
+                                    <label class="control-label" for="fecha_documento">Fecha Documento</label>
+                                    <div class="input-group">
+                                        <input type="text" name="fecha_documento" id="fecha_documento"
+                                               class="form-control"
+                                               data-ng-model="datos.fecha_documento"
+                                               masked="" data-inputmask="'mask': '9999-99-99'"
+                                               is-open="opened" datepicker-options="dateOptions"
+                                               ng-required="true"
+                                               close-text="Cerrar" uib-datepicker-popup/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"
+                                                    ng-click="calendarOpen($event)">
+                                                <em class="fa fa-calendar"></em>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.observaciones.$invalid }">
+                                    <label class="control-label" for="observaciones">Observaciones</label>
+                                    <textarea class="form-control" ng-minlength="15" name="observaciones"
+                                              id="observaciones" type="text" ng-model="datos.observaciones" rows="3">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.medio_recepcion.$invalid }">
+                                    <label class="control-label" for="file">Seleccionar archivo</label>
+                                    <input filestyle="" type="file" id="file" name="file"
+                                           data-button-text="Archivo"
+                                           data-class-button="btn btn-default"
+                                           data-classinput="form-control inline"
+                                           ngf-select ng-model="picFile"
+                                           accept="image/*,application/pdf,application/xls,application/doc,application/zip,application/rar,audio/*,video/*,text/*"
+                                           ngf-max-size="20MB" required
+                                           ngf-model-invalid="errorFile"
+                                           class="form-control"/>
+                                </div>
+                                <p ng-show="frmLoadAnexos.file.$error.maxSize" class="text-danger">
+                                    Archivo demasiado grande {{errorFile.size / 1000000|number: 1}}MB: max 20M
+                                </p>
+                                <p ng-show="frmLoadAnexos.file.$error.required" class="text-warning">
+                                    No hay archivos en cola. Agregue un archivo...
+                                </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <p>Progreso:</p>
+                                        <div class="progress">
+                                            <div role="progressbar"
+                                                 ng-style="{ 'width': porcentajeCraga + '%' }"
+                                                 class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="guardarFrm(datos,picFile)"
+                        ng-disabled="!frmLoadAnexos.$valid"
+                        class="btn btn-info">
+                    <span class="fa fa-upload"></span> {{frmAnexos.origen!=='mdexterno' ? 'Cargar' : 'Preparar' }}
+                </button>
+                <button type="button" ng-click="cancelar()" class="btn btn-danger">
+                    Cerrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style scoped>
+/* Estilos específicos para el modal */
+.modal-dialog {
+    height: auto !important;
+    max-height: 90vh !important;
+    overflow: visible !important;
+    margin: 1.75rem auto;
+    padding: 0 !important;
+}
+
+.modal-content {
+    height: auto !important;
+    max-height: calc(90vh - 3.5rem) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.modal-header,
+.modal-footer {
+    flex-shrink: 0 !important;
+    padding: 1rem !important;
+}
+
+.modal .modal-body {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    padding: 1rem !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Restablecer estilos para elementos dentro del modal */
+.modal .panel-body,
+.modal .table-scrollable,
+.modal table {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.modal .form-group {
+    margin-bottom: 1rem !important;
+}
+
+.modal .input-group-sm {
+    width: 100% !important;
+}
+
+.modal .progress {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Media query para ajustes en pantallas pequeñas */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0.5rem auto !important;
+        max-width: calc(100% - 1rem) !important;
+    }
+    
+    .modal-content {
+        max-height: calc(100vh - 1rem) !important;
+    }
+}
+</style>

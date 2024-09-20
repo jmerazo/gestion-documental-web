@@ -1,0 +1,88 @@
+<div class="modal-header">
+    Radicado
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-16" id="areaPrint">
+            <table class="" style="width: 260px; border: 1px solid #000; font-family: 'Helvetica', Arial, sans-serif"
+                   align="center" id="tbRadicado">
+                <tbody>
+                <tr>
+                    <td width="80" style="text-align: center">
+                        <div id="qrRadicado"></div>
+                    </td>
+                    <td style="line-height: 11px">
+
+                        <span style="font-size: 16px; font-weight: bold">
+            <label id="lbl_nroRad"
+                   style="font-weight: bold; font-size: 16px; margin-top: 2px;">{{radicado.nro_radicado}}</label>
+        </span>
+                        <br style="line-height: 12px">
+
+                        <span style="font-size: 12px" id="nomEntP"><b>Gobernación Del Putumayo</b></span>
+                        <br style="line-height: 12px">
+                        <span style="font-size: 10px; font-style:italic "
+                              id="lemaEnt">"Trece Municipios un Solo Corazón"</span>
+                        <br style="line-height: 12px">
+                        <span style="font-size: 10px">Fec. RD:
+            <label style="font-size: 10px" id="fecRadicado">{{radicado.fec_rad}}</label>
+        </span>
+
+                        <br style="line-height: 12px">
+                        <span style="font-size: 12px; font-weight: bold">
+            <label style="font-size: 12px; font-weight: normal">N. Folios: </label>
+            <label style="font-weight: bold; font-size: 12px;">{{radicado.nfol}}</label>
+                        &nbsp;&nbsp;
+                        <label style="font-size: 12px; font-weight: normal">N. Anexos: </label>
+            <label style="font-weight: bold; font-size: 12px;">{{radicado.nanx || 0 }}</label>
+        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            Imprimir en:
+            <table style="cursor:pointer; cursor: hand" class="table-bordered table table-condensed" id="tbPositions">
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="1"></td>
+                    <td style="width: 50%; text-align: center">
+                        <input type="radio" name="PrintPosicion" ng-model="posicion" value="2" checked=""></td>
+                </tr>
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="3"></td>
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="4"></td>
+                </tr>
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="5"></td>
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="6"></td>
+                </tr>
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="7"></td>
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="8"></td>
+                </tr>
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="9"></td>
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="10"></td>
+                </tr>
+                <tr style="height:25%; ">
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="11"></td>
+                    <td style="width: 50%; text-align: center"><input type="radio" name="PrintPosicion"
+                                                                      ng-model="posicion" value="12"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-include="'app/views/fragmento/btn_modal_print.html'"></div>
+

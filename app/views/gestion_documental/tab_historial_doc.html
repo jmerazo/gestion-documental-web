@@ -1,0 +1,23 @@
+<!-- START timeline-->
+<ul ng-class="timelineAlt ? 'timeline-alt' : 'timeline'" ng-init="timelineAlt=true">
+    <li data-datetime="Now" class="timeline-separator"></li>
+    <!-- START timeline item-->
+    <li ng-repeat="hist in CtrlHistoria.dataHist">
+        <div class="timeline-badge primary">
+            <em class="fa fa-users"></em>
+        </div>
+        <div class="timeline-panel">
+            <div ng-class="timelineAlt ? 'right' : 'left'" class="popover">
+                <h4 class="popover-title">{{hist.cuando}} - {{hist.que}}</h4>
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <p><b>Quién:</b> {{(hist.quien || 'ND')|capitalize}}<br>
+                        <small>{{hist.observaciones|capitalize}}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </li>
+
+    <!-- END timeline item-->
+</ul>

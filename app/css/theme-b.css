@@ -1,0 +1,477 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+body, html {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12.5px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; /* Aplicar peso más grueso a los títulos */
+}
+
+p, input, button, label {
+  font-weight: 400; /* Peso normal para otros elementos */
+}
+/* ========================================================================
+   Component: layout
+ ========================================================================== */
+ body,
+ .wrapper > section {
+   background-color: #f5f7fa;
+ }
+ .wrapper > .aside {
+   background-color: #fff;
+ }
+ /* ========================================================================
+    Component: top-navbar
+  ========================================================================== */
+ .topnavbar {
+   background-color: #fff;
+ }
+ .topnavbar .navbar-header {
+   background-color: transparent;
+   background-image: -webkit-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: -o-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: linear-gradient(to right, #005BAC 0%, #0072CE 100%);
+   background-repeat: repeat-x;
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff005BAC', endColorstr='#ff0072CE', GradientType=1);
+ }
+ @media only screen and (min-width: 768px) {
+   .topnavbar .navbar-header {
+     background-image: none;
+   }
+ }
+ .topnavbar .navbar-nav > li > .navbar-text {
+   color: #005BAC;
+ }
+ .topnavbar .navbar-nav > li > a,
+ .topnavbar .navbar-nav > .open > a {
+   color: #005BAC;
+ }
+ .topnavbar .navbar-nav > li > a:hover,
+ .topnavbar .navbar-nav > .open > a:hover,
+ .topnavbar .navbar-nav > li > a:focus,
+ .topnavbar .navbar-nav > .open > a:focus {
+   color: #00335C;
+ }
+ .topnavbar .navbar-nav > .active > a,
+ .topnavbar .navbar-nav > .open > a,
+ .topnavbar .navbar-nav > .active > a:hover,
+ .topnavbar .navbar-nav > .open > a:hover,
+ .topnavbar .navbar-nav > .active > a:focus,
+ .topnavbar .navbar-nav > .open > a:focus {
+   background-color: transparent;
+ }
+ .topnavbar .navbar-nav > li > [data-toggle='navbar-search'] {
+   color: #fff;
+ }
+ .topnavbar .nav-wrapper {
+   background-color: #005BAC;
+   background-image: -webkit-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: -o-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: linear-gradient(to right, #005BAC 0%, #0072CE 100%);
+   background-repeat: repeat-x;
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff005BAC', endColorstr='#ff0072CE', GradientType=1);
+ }
+ @media only screen and (min-width: 768px) {
+   .topnavbar {
+     background-color: #005BAC;
+     background-image: -webkit-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+     background-image: -o-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+     background-image: linear-gradient(to right, #005BAC 0%, #0072CE 100%);
+     background-repeat: repeat-x;
+     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff005BAC', endColorstr='#ff0072CE', GradientType=1);
+   }
+   .topnavbar .navbar-nav > .open > a,
+   .topnavbar .navbar-nav > .open > a:hover,
+   .topnavbar .navbar-nav > .open > a:focus {
+     box-shadow: 0 -3px 0 rgba(255, 255, 255, 0.5) inset;
+   }
+   .topnavbar .navbar-nav > li > .navbar-text {
+     color: #fff;
+   }
+   .topnavbar .navbar-nav > li > a,
+   .topnavbar .navbar-nav > .open > a {
+     color: #fff;
+   }
+   .topnavbar .navbar-nav > li > a:hover,
+   .topnavbar .navbar-nav > .open > a:hover,
+   .topnavbar .navbar-nav > li > a:focus,
+   .topnavbar .navbar-nav > .open > a:focus {
+     color: #00335C;
+   }
+ }
+ /* ========================================================================
+    Component: sidebar
+  ========================================================================== */
+ /* Estilos para la barra lateral (sidebar) */
+/* Asegúrate de que la sidebar use flexbox */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fff;
+}
+
+/* Hacer que el contenedor principal ocupe el espacio disponible */
+.sidebar .nav {
+  flex-grow: 1;  /* Esto empuja el contenido hacia arriba */
+}
+
+/* Estilo para el botón de Cerrar Sesión */
+.cerrar-sesion {
+  padding: 15px;
+  color: #005BAC;
+  text-align: center;
+  align-items: center;
+  margin-top: auto; /* Asegura que esté al final */
+  margin-bottom: 1rem;
+}
+
+.cerrar-sesion a {
+  color: #005BAC;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.cerrar-sesion a:hover {
+  color: #005BAC;
+}
+
+ .sidebar .nav-heading {
+   color: #919DA8;
+ }
+ .sidebar .nav > li > a,
+ .sidebar .nav > li > .nav-item {
+   color: #515253;
+ }
+ .sidebar .nav > li > a:focus,
+ .sidebar .nav > li > .nav-item:focus,
+ .sidebar .nav > li > a:hover,
+ .sidebar .nav > li > .nav-item:hover {
+   color: #005BAC;
+ }
+ .sidebar .nav > li.active,
+ .sidebar .nav > li.open,
+ .sidebar .nav > li.active > a,
+ .sidebar .nav > li.open > a,
+ .sidebar .nav > li.active .nav,
+ .sidebar .nav > li.open .nav {
+   background-color: #fcfcfc;
+   color: #005BAC;
+ }
+ .sidebar .nav > li.active > a > em,
+ .sidebar .nav > li.open > a > em {
+   color: #005BAC;
+ }
+ .sidebar .nav > li.active {
+   border-left-color: #005BAC;
+ }
+ .sidebar-subnav {
+   background-color: #fff;
+ }
+ .sidebar-subnav > .sidebar-subnav-header {
+   color: #515253;
+ }
+ .sidebar-subnav > li > a,
+ .sidebar-subnav > li > .nav-item {
+   color: #515253;
+ }
+ .sidebar-subnav > li > a:focus,
+ .sidebar-subnav > li > .nav-item:focus,
+ .sidebar-subnav > li > a:hover,
+ .sidebar-subnav > li > .nav-item:hover {
+   color: #005BAC;
+ }
+ .sidebar-subnav > li.active > a,
+ .sidebar-subnav > li.active > .nav-item {
+   color: #005BAC;
+ }
+ .sidebar-subnav > li.active > a:after,
+ .sidebar-subnav > li.active > .nav-item:after {
+   border-color: #005BAC;
+   background-color: #005BAC;
+ }
+
+ /* logo sidebar */
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+}
+
+.sidebar-logo {
+  max-width: 90%;
+}
+
+.sidebar.collapsed {
+  width: 50px; /* o el ancho que prefieras para la sidebar colapsada */
+}
+
+.sidebar.collapsed .nav > li > a > span {
+  display: none;
+}
+
+.btn-toggle-sidebar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+.sidebar.collapsed {
+  width: 50px;
+  overflow: hidden;
+}
+
+/* Ocultar texto y mostrar solo iconos en la sidebar colapsada */
+.sidebar.collapsed .nav > li > a > span,
+.sidebar.collapsed .nav-heading,
+.sidebar.collapsed .user-block-info,
+.sidebar.collapsed .cerrar-sesion span {
+  display: none;
+}
+
+/* Ajustar iconos en la sidebar colapsada */
+.sidebar.collapsed .nav > li > a > em,
+.sidebar.collapsed .nav > li > a > img {
+  margin-right: 0;
+  font-size: 18px;
+}
+
+/* Estilos para el header de la sidebar */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.sidebar-logo {
+  max-width: 70%;
+  transition: all 0.3s ease;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-logo-small {
+  display: block;
+  max-width: 30px;
+  margin-right: 10px;
+}
+
+.sidebar-logo-small {
+  display: none;
+}
+
+.btn-toggle-sidebar {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  color: #005BAC;
+}
+
+.logs__header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Estilos específicos para cuando la sidebar está colapsada */
+.sidebar.collapsed .logs__header {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-logo-small {
+  display: block;
+  margin: 0 auto; /* Esto centra el logo pequeño */
+}
+
+/* Ajustar el contenido principal cuando la sidebar está colapsada */
+@media (min-width: 768px) {
+  .wrapper > section {
+    margin-left: 220px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar-collapsed .wrapper > section {
+    margin-left: 50px;
+  }
+}
+
+/* Transición suave para la sidebar */
+.sidebar, .sidebar-logo, .nav > li > a > span {
+  transition: all 0.3s ease;
+}
+ /* ========================================================================
+    Component: offsidebar
+  ========================================================================== */
+ .offsidebar {
+   border-left: 1px solid #cccccc;
+   background-color: #fff;
+   color: #515253;
+ }
+ /*==========================
+ Component Modal
+ ========== */
+ .modal-header {
+   padding: 5px 10px;
+   background-color: #005BAC;
+   color: white;
+   background-image: -webkit-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: -o-linear-gradient(left, #005BAC 0%, #0072CE 100%);
+   background-image: linear-gradient(to right, #005BAC 0%, #0072CE 100%);
+   background-repeat: repeat-x;
+   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff005BAC', endColorstr='#ff0072CE', GradientType=1);
+   border-radius: 6px 6px 0px 0px;
+ }
+ .modal-body {
+   padding: 5px 10px;
+ }
+ .modal-footer {
+   padding: 6px 13px;
+   background-color: #e6e6e6;
+ }
+ 
+ .btn__dashboard{
+  width: 2.5rem;
+ }
+
+ /* == Colours control panel */
+ .text-white {
+  color: #FFFFFF !important;
+}
+
+.widget-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9em;
+}
+
+/* Clases de color de fondo */
+.bg-govco-purple { background-color: #4B286D; }
+.bg-govco-red { background-color: #A80521; }
+.bg-govco-orange { background-color: #FF6E00; }
+.bg-govco-yellow { background-color: #FFD200; }
+.bg-govco-green { background-color: #069169; }
+
+/* Clases para el área más oscura del widget */
+.bg-govco-purple-dark { background-color: #3A1F55; }
+.bg-govco-red-dark { background-color: #86041A; }
+.bg-govco-orange-dark { background-color: #CC5800; }
+.bg-govco-yellow-dark { background-color: #CCA800; }
+.bg-govco-green-dark { background-color: #057354; }
+
+/* Ajustes específicos para mejor legibilidad */
+.bg-govco-yellow, .bg-govco-yellow-dark {
+  color: #000000 !important; /* Texto negro para el fondo amarillo */
+}
+.bg-govco-yellow .widget-description {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.text-dark {
+  color: #000000 !important;
+}
+
+.text-dark .widget-description {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.text-dark .fa {
+  color: #000000 !important;
+}
+
+/* Sobrescribir cualquier estilo de texto blanco */
+.text-dark.text-white,
+.text-dark .text-white {
+  color: #000000 !important;
+}
+
+/* panel heading dashboard */
+.panel-govco {
+  border-color: #3366CC; /* Color principal de GOV.CO */
+}
+
+.panel-govco > .panel-heading {
+  color: #FFFFFF;
+  background-color: #3366CC;
+  border-color: #3366CC;
+}
+
+.panel-govco > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #3366CC;
+}
+
+.panel-govco > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #3366CC;
+}
+
+.panel-govco-secondary {
+  border-color: #4B286D; /* Púrpura de GOV.CO */
+}
+
+.panel-govco-secondary > .panel-heading {
+  color: #FFFFFF;
+  background-color: #4B286D;
+  border-color: #4B286D;
+}
+
+.text-thin{
+  color: #000000;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.rta__correo{
+  font-weight: bold;
+}
+
+/*PRELOADER */
+/* Estilos generales para el preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2); /* Fondo blanco con transparencia */
+  backdrop-filter: blur(10px); /* Desenfoque del fondo */
+  -webkit-backdrop-filter: blur(10px); /* Desenfoque en navegadores WebKit */
+  z-index: 9999; /* Asegurarse de que esté al frente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease; /* Transición suave al desaparecer */
+}
+
+.preloader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s 0.5s;
+  /* La transición de visibilidad ocurre después de la de opacidad */
+}
+
+/* Estilos de la barra de progreso dentro del preloader */
+.preloader-progress {
+  width: 50%;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.3); /* Fondo de la barra con opacidad */
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  background-color: #1167b1; /* Color azul GOV.CO */
+  transition: width 0.4s ease;
+}

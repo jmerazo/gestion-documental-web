@@ -1,0 +1,7 @@
+# Add any directories, files, or patterns you don't want to be tracked by version controli
+
+master/node_modules/
+.idea/
+app/js/app.js
+app/js/base.js
+/app/css/app.css

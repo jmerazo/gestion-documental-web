@@ -1,0 +1,125 @@
+<div class="row">
+    <div id="panelPortlet2" class="panel panel-primary" style="opacity: 1;">
+        <div class="panel-heading portlet-handler ui-sortable-handle">INFORMACIÓN
+            <paneltool tool-collapse="tool-collapse" class="pull-right">
+                Click <a href="" panel-collapse="" uib-tooltip="Minimizar / Maximizar"
+                    ng-click="panelPortlet2 = !panelPortlet2" class="ng-scope">
+                    <em ng-show="panelPortlet2" class="fa fa-plus ng-no-animation ng-hide"></em>
+                    <em ng-show="!panelPortlet2" class="fa fa-minus ng-no-animation"></em>
+                </a></paneltool>
+        </div>
+        <div uib-collapse="panelPortlet2" class="panel-wrapper in collapse" aria-expanded="true" aria-hidden="false"
+            style="height: auto;">
+            <div class="panel-body">
+                <p>
+                    Aquí puede agregar todos los anexos relacionados con el documento radicado, no hay límite de
+                    documentos anexados.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-10 col-sm-4">
+                    <div class="bigger-110 bold">Codigo radicado:</div>
+                    <div class="span7 ">{{CtrlAnexos.dtsRad.cod_radicado}}</div>
+                </div>
+                <div class="col-xs-10 col-sm-4">
+                    <div class="bigger-110 bold">Fecha radicado:</div>
+                    <div class="span7  ">{{CtrlAnexos.dtsRad.fecha_radicado}}</div>
+                </div>
+                <div class="col-xs-10 col-sm-4">
+                    <div class="bigger-110 bold">N° Oficio:</div>
+                    <div class="span7  ">{{CtrlAnexos.dtsRad.numero_documento_radicado || 'ND'}}</div>
+                </div>
+                <div class="col-xs-10 col-sm-4">
+                    <div class="bigger-110 bold">Tipo Documento:</div>
+                    <div class="span7  ">{{CtrlAnexos.dtsRad.nom_tipo_documental || 'ND'}}</div>
+                </div>
+                <div class="col-xs-10 col-sm-4">
+                    <div class="bigger-110 bold">Fec. Lim Rta:</div>
+                    <div class="span7  ">{{CtrlAnexos.dtsRad.fecha_limite}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-20 col-sm-20">
+                    <div class="bigger-110 bold">Asunto:</div>
+                    <div class="span7  ">{{CtrlAnexos.dtsRad.asunto_documento || 'ND'}}</div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-20">
+                    <button class="btn btn-sm btn-success pull-right" tooltip-append-to-body="true"
+                        uib-tooltip="Cargar anexo" ng-click="loadFile(CtrlAnexos.dtsRad)"><i class="fa fa-upload">
+                            Cargar anexo</i>
+                    </button>
+                </div>
+                <div class="col-sm-20" ng-class="{'whirl traditional':Anexos.loading}">
+                    <div class="table-responsive">
+                        <table class="table table-borde table-condensed table-hover">
+                            <thead style="text-align: center;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tipo documento</th>
+                                    <th>Nro documento</th>
+                                    <th>Fecha documento</th>
+                                    <th>Fecha Cargue</th>
+                                    <th>Cargado Por</th>
+                                    <th>Observaciones</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="reg in Anexos.dtsPagina |filter:search">
+                                    <td><b>{{$index+1}}</b></td>
+                                    <td>{{reg.tipo_anexo}}</td>
+                                    <td>{{reg.nro_documento}}</td>
+                                    <td>{{reg.fecha_documento}}</td>
+                                    <td>{{reg.fecha_sys}}</td>
+                                    <td tooltip-append-to-body="true" uib-tooltip="{{reg.nom_usuario_carga}}">
+                                        {{reg.nom_usuario_carga|cortarTexto:15}}
+                                    </td>
+                                    <td tooltip-append-to-body="true" uib-tooltip="{{reg.observaciones}}">
+                                        {{reg.observaciones|cortarTexto:25}}
+                                    </td>
+                                    <td class="center text-center">
+                                        <button class="btn btn-sm btn-primary" type="button"
+                                            ng-click="verDocumento(reg)" tooltip-append-to-body="true"
+                                            uib-tooltip="Descargar">
+                                            <i class="fa fa-download"></i></button>
+                                        <!--<button class="btn btn-sm btn-warning" type="button" ng-click="" tooltip-append-to-body="true"
+                                        uib-tooltip="Editar">
+                                <i class="fa fa-pencil"></i></button>-->
+                                        <button class="btn btn-sm btn-danger" type="button"
+                                            ng-click="CtrlAnexos.delete(reg)" tooltip-append-to-body="true"
+                                            uib-tooltip="Eliminar">
+                                            <i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-20">
+                    <ul uib-pagination ng-change="pageChanged()" total-items="Anexos.totRegistros"
+                        ng-model="Anexos.pag_actual" max-size="4" items-per-page="Anexos.items_por_page"
+                        class="pagination-sm pull-right" boundary-links="true" previous-text="Ant." next-text="Sig.">
+                    </ul>
+                    <div class="btn-group btn-group-sm pull-right">
+                        <button type="button" class="btn btn-default" ng-click="reloadGrid()"><i
+                                class="fa fa-refresh"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,3 @@
+<div ng-if="dtsRep.tipo_reporte=='list' || dtsRep.tipo_reporte=='ver' || dtsRep.tipo_reporte=='print'"
+     ng-include="'app/views/gestion_documental/reportes/list_documentos.html'"></div>
+<div ng-if="dtsRep.tipo_reporte=='pdf'" ng-include="'app/views/generales/view_pdf.html'"></div>

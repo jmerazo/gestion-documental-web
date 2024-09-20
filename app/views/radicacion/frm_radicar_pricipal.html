@@ -1,0 +1,254 @@
+<div class="row">
+    <div class="col-lg-20">
+        <!-- START panel-->
+        <div id="panelDemoRefresh2" class="panel panel-default">
+            <div class="panel-heading">
+                <i class="ace-icon fa fa-table"></i>
+                Radicación de entrada <br>En los siguientes campos llene la información que contiene el oficio
+                <div class="pull-right">
+                    <button class="btn btn-success btn-xs" ng-click="save(frmRadE)" type="button">
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-20 col-sm-20 widget-container-col" id="contenForm">
+                    <form id="frm_rad_entrada" name="frm_rad_entrada" class="form-validate no-padding" novalidate="">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.fecha_radicado.$invalid }">
+                                    <label class="control-label" for="fecha_radicado">Fec. Radicado</label>
+                                    <input type="checkbox" ng-true-value="1" ng-false-value="0"
+                                           ng-model="fecha_automatica">
+                                    <input type="text" name="fecha_radicado" id="fecha_radicado"
+                                           class="form-control input-sm" masked=""
+                                           data-inputmask="'mask': '9999-99-99 99:99:99'" ng-required="true"
+                                           ng-model="frmRadE.fecha_radicado" ng-disabled="fecha_automatica==1"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group form-group-sm"
+                                     data-ng-class="{'has-error': !frmRadE.ide_tercero_origen}">
+                                    <label class="control-labe" for="ide_tercero_origen" id="lblIdeEntidadOrigen">
+                                        Entidad remitente</label>
+                                    <i class="fa fa-plus-circle green bigger-115" ng-click="newTercero()"
+                                       style="cursor:pointer; cursor: hand"></i>
+
+                                    <ui-select ng-model="dtsTerceroSelect" theme="bootstrap"
+                                               on-select="frmRadE.ide_tercero_origen=dtsTerceroSelect.codigo; frmRadE.mail_respuesta=dtsTerceroSelect.mail_tercero"
+                                               reset-search-input="true"
+                                               input-id="ide_tercero_origen">
+                                        <ui-select-match placeholder="Busque una entidad o persona" allow-clear="true">
+                                            {{$select.selected.dts_tercero}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="origen in listOrigen"
+                                                refresh="buscarOrigen($select.search)" refresh-delay="1000"
+                                                minimum-input-length="2">
+                                            <div ng-bind-html="origen.nom_apes | highlight: $select.search"></div>
+                                            <small>
+                                                <div>
+                                                    <span ng-bind-html="origen.nom_entidad | highlight: $select.search"></span>
+                                                </div>
+                                            </small>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            No pudimos encontrar ninguna elección...
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.mail_respuesta.$invalid }">
+                                    <label class="control-label" for="mail_respuesta">Correo Electrónico para
+                                        notificar</label>
+                                    <input type="email" name="mail_respuesta" id="mail_respuesta"
+                                           class="form-control input-sm"
+                                           ng-model="frmRadE.mail_respuesta"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.ide_medio_recepcion.$invalid }">
+                                    <label class="control-labe" for="ide_medio_recepcion">
+                                        Naturaleza Documento</label>
+                                    <select class="form-control input-sm" ng-required="true" id="ide_medio_recepcion"
+                                            ng-model="medioRecibo"
+                                            ng-options="medioreibo.nom for medioreibo in listMedioRecepcion"
+                                            name="ide_medio_recepcion"
+                                            ng-change="frmRadE.ide_medio_recepcion=medioRecibo.id">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.fecha_documento_radicado.$invalid }">
+                                    <label class="control-label" for="fecha_documento_radicado">Fec. Documento</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="fecha_documento_radicado" id="fecha_documento_radicado"
+                                               class="form-control input-sm"
+                                               uib-datepicker-popup="{{format}}"
+                                               data-ng-model="frmRadE.fecha_documento_radicado"
+                                               date-disabled="disabled(date, mode)" masked=""
+                                               data-inputmask="'mask': '9999-99-99'"
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               close-text="Cerrar" alt-input-formats="altInputFormats"/>
+                                        <span class="input-group-btn">
+                                         <button class="btn btn-default" type="button" ng-click="open($event)">
+                                            <em class="fa fa-calendar"></em>
+                                         </button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group ">
+                                    <label class="control-labe" for="numero_documento_radicado">No. Documento</label>
+                                    <input class="form-control input-sm" ng-model="frmRadE.numero_documento_radicado"
+                                           id="numero_documento_radicado"
+                                           name="numero_documento_radicado" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.n_folios.$invalid }">
+                                    <label class="control-labe" for="n_folios">Nro. folios</label>
+                                    <input class="form-control input-sm" id="n_folios" ng-model="frmRadE.numero_folios"
+                                           name="n_folios"
+                                           type="number" min="0" ng-required="true" ng-init="frmRadE.numero_folios=1">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group ">
+                                    <label class="control-labe" for="txt_nro_anexos">Nro. anexos</label>
+                                    <input class="form-control input-sm" id="txt_nro_anexos"
+                                           ng-init="frmRadE.nro_anexos=0"
+                                           name="txt_nro_anexos" , ng-model="frmRadE.nro_anexos"
+                                           type="number" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-20">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.asunto_documento.$invalid }">
+                                    <label class="control-labe" for="asunto_documento">Asunto</label>
+                                    <textarea class="form-control input-sm" style="resize: none;" rows="2"
+                                              ng-model="frmRadE.asunto_documento"
+                                              id="asunto_documento" name="asunto_documento" ng-required="true"
+                                              ng-minlength="15"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <div class="form-group form-group-sm"
+                                     data-ng-class="{'has-error': !frmRadE.ide_unidad_administrativa_destino}">
+                                    <label class="control-labe" for="ide_unidad_administrativa_destino">Oficina
+                                        Destinatario</label>
+                                    <ui-select ng-model="dtsOficinaDest" theme="bootstrap"
+                                               on-select="frmRadE.ide_unidad_administrativa_destino=dtsOficinaDest.id"
+                                               ng-disabled="uisel.disabled" reset-search-input="false"
+                                               input-id="ide_unidad_administrativa_destino">
+                                        <ui-select-match placeholder="Busque una oficina destino" allow-clear="true">
+                                            {{$select.selected.nom | capitalize}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="dependencia in listDependencias | filter: $select.search"
+                                                refresh-delay="1000" minimum-input-length="2">
+                                            <div ng-bind-html="dependencia.nom|capitalize | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            No pudimos encontrar ninguna elección...
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="form-group form-group-sm"
+                                     data-ng-class="{'has-error': !frmRadE.ide_funcionario_destino}">
+                                    <label class="control-labe" for="ide_funcionario_destino">Funcionario
+                                        Destinatario</label>
+                                    <ui-select ng-model="dtsFunionarioDest" theme="bootstrap"
+                                               on-select="frmRadE.ide_funcionario_destino=dtsFunionarioDest.id"
+                                               ng-disabled="uisel.disabled" reset-search-input="false"
+                                               input-id="ide_funcionario_destino">
+                                        <ui-select-match placeholder="Busque un funcionario destino" allow-clear="true">
+                                            {{$select.selected.nom | capitalize}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="funcionario in listFuncionarios | filter: $select.search"
+                                                refresh-delay="1000" minimum-input-length="2">
+                                            <div ng-bind-html="funcionario.nom|capitalize | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            No pudimos encontrar ninguna elección...
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.ide_tipo_documental.$invalid }">
+                                    <label class="control-labe" for="ide_tipo_documental">Tipo Documento</label>
+                                    <select id="ide_tipo_documental" name="ide_tipo_documental"
+                                            class="form-control input-sm" ng-required="true"
+                                            ng-options="option.nom for option in listTipoDocs"
+                                            ng-model="dtsTipDoc"
+                                            ng-change="frmRadE.ide_tipo_documental=dtsTipDoc.id">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group" data-ng-class="{'has-error': frm_rad_entrada.fecha_respuesta.$invalid }">
+                                    <label class="control-label" for="fecha_respuesta">Fec. Lim Rta</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" name="fecha_respuesta" id="fecha_respuesta"
+                                               class="form-control input-sm"
+                                               ng-model="frmRadE.fecha_respuesta"
+                                               ng-change="updateFechaRespuesta()"
+                                               uib-datepicker-popup="{{format}}"
+                                               is-open="openedFecLim"
+                                               datepicker-options="dateOptionsFecLim"
+                                               ng-required="true"
+                                               close-text="Cerrar"
+                                               masked="" data-inputmask="'mask': '9999-99-99'"/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button"
+                                                    ng-click="calendarOpenFecLim()">
+                                                <em class="fa fa-calendar"></em>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>                         
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-20">
+                                <div class="form-group"
+                                     data-ng-class="{'has-error': frm_rad_entrada.observaciones_radicado.$invalid }">
+                                    <label class="control-labe" for="observaciones_radicado">Observaciones
+                                        Documento</label>
+                                    <textarea class="form-control input-sm" rows="2" style="resize: none;"
+                                              id="observaciones_radicado" ng-model="frmRadE.observaciones_radicado"
+                                              name="observaciones_radicado" ng-minlength="10">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="qr"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

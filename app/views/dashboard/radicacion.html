@@ -1,0 +1,211 @@
+<span class="text-thin">Cuadro de control</span>
+<div class="row">
+    <div class="col-lg-4 col-sm-6" ng-repeat="r in dash1.datosTotalesxTiempoRads">
+        <!-- START widget-->
+        <div class="panel widget {{r.tipo.color}} text-white" 
+             ng-class="{'text-dark': r.$hashKey === 'object:33' || r.total === 243}"
+             ng-click="dash1.filtroGestion(r.tipo.codFiltro)">
+            <div class="row row-table">
+                <div class="col-xs-4 text-center {{r.tipo.color}}-dark pv-lg">
+                    <em class="fa fa-bar-chart"></em>
+                </div>
+                <div class="col-xs-16 pv-lg">
+                    <div class="h2 mt0">{{r.total}}</div>
+                    <div class="widget-description">{{r.tipo.nom}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="panel panel-govco">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart"></i> Radicados
+            </div>
+            <div class="panel-body">
+                <div class="row row-table row-flush">
+                    <div class="col-xs-6 bb br">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('hoy')">
+                            <div class="col-xs-10 text-center text-info">
+                                <img src="app/img/hoy.png" alt="hoy"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_hoy}}</h4>
+                                    <p class="mb0 text-muted">Hoy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-7 bb br">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('ayer')">
+                            <div class="col-xs-10 text-center text-danger">
+                                <img src="app/img/ayer.png" alt="ayer"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_ayer}}</h4>
+                                    <p class="mb0 text-muted">Ayer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-7 bb">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('semana')">
+                            <div class="col-xs-16 text-center text-inverse">
+                                <img src="app/img/esta_semana.png" alt="ayer"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_sem}}</h4>
+                                    <p class="mb0 text-muted">Esta semana</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-table row-flush">
+                    <div class="col-xs-6 br">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('sem_ant')">
+                            <div class="col-xs-16 text-center text-inverse">
+                                <img src="app/img/semana_anterior.png" alt="ayer"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_sem_ant}}</h4>
+                                    <p class="mb0 text-muted">Semana pasada</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-7 br">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('mes_act')">
+                            <div class="col-xs-16 text-center text-inverse">
+                                <img src="app/img/este_mes.png" alt="Mes actual"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_mes}}</h4>
+                                    <p class="mb0 text-muted">Este mes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="row row-table row-flush" ng-click="dash1.filtroGestion('mes_ant')">
+                            <div class="col-xs-10 text-center text-success">
+                                <img src="app/img/mes_anterior.png" alt="Mes anterior"
+                                     class="img-thumbnail img-circle img-responsive thumb64">
+                            </div>
+                            <div class="col-xs-14">
+                                <div class="panel-body text-center">
+                                    <h4 class="mt0">{{dash1.cuadro1.t_mes_ant}}</h4>
+                                    <p class="mb0 text-muted">Mes pasado</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- column 1 **************** NO REQUIERES USAR EN UN INICIO LA CLASE .row YA Q EL CONTENEDOR LA TIENE DEFINIDA -->
+    <div class="col-sm-10"> <!-- columna 1 en fila 1 -->
+
+        <div class="panel panel panel-govco">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart"></i> Número de radicados por mes en el año
+            </div>
+            <div class="panel-body">
+                <div>
+                    <canvas class="chart chart-bar"
+                            chart-options="dash1.chartOptionsXMes"
+                            chart-data="dash1.datosGraficoRadicadosXMes.datos"
+                            chart-labels="dash1.datosGraficoRadicadosXMes.labels"
+                            chart-dataset-override="dash1.datasetOverride">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- fin columna 1 en fila 1 -->
+</div>
+<div class="row">
+    <div class="col-sm-10"> <!-- columna 2 en fila 1 -->
+
+        <div class="panel panel panel-govco">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart"></i> Número de radicados por medios de recepción en el año
+            </div>
+            <div class="panel-body">
+                <div>
+                    <canvas class="chart chart-bar"
+                            chart-options="dash1.chartOptionsXTipoDoc"
+                            chart-data="dash1.datosMediosRecepcion.datos"
+                            chart-labels="dash1.datosMediosRecepcion.labels"
+                            chart-dataset-override="dash1.datosMediosRecepcion">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- fin columna 2 en fila 1 -->
+
+    <div class="col-sm-10"> <!-- columna 1 en fila 2 -->
+
+        <div class="panel panel panel-govco">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart"></i> Número de radicados por tipo de documento
+            </div>
+            <br>
+            <!--
+            Escoga el año
+            <select ng-model="dash1.anio">
+                <option value="2018">2018</option>
+                <option selected="true" value="2019" >2019</option>
+            </select>
+            <button ng-click="anioSel()">Ver</button>
+            -->
+            <div class="panel-body">
+                <div>
+                    <canvas class="chart chart-bar"
+                            chart-options="dash1.chartOptionsXDoc"
+                            chart-data="dash1.datosRadicadosxTipoDocumento.datos"
+                            chart-labels="dash1.datosRadicadosxTipoDocumento.labels"
+                            chart-dataset-override="dash1.datasetOverride2">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-20"> <!-- columna 1 en fila 3 -->
+        <div class="panel panel panel-govco">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart"></i> Número de radicados por unidad Administrativa
+            </div>
+            <br>
+            <div class="panel-body">
+                <div>
+                    <canvas class="chart chart-bar"
+                            chart-options="dash1.chartOptionsXUniAdtiva"
+                            chart-data="dash1.datosRadicadosxUnidadAdtiva.datos"
+                            chart-labels="dash1.datosRadicadosxUnidadAdtiva.labels"
+                            chart-dataset-override="dash1.datasetOverride4">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

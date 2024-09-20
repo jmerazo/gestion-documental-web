@@ -1,0 +1,157 @@
+<div ng-class="{'row':activetab!='' || activetab=='tabanexos'}">
+
+    <h3>Radicado de
+        {{ (viewRad.dtsRad.ide_tipo_radicado==1) ? 'Entrada' : (viewRad.dtsRad.ide_tipo_radicado==2 ? 'Salida' :
+        'Interno')
+        }}
+    </h3>
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-xs-10 col-sm-6">
+                <div class="bigger-110 bold">Codigo radicado:</div>
+                <div class="span7 red ">{{viewRad.dtsRad.cod_radicado}}</div>
+            </div>
+            <div class="col-xs-10 col-sm-6">
+                <div class="bigger-110 bold">Fecha radicado:</div>
+                <div class="span7 red ">{{viewRad.dtsRad.fecha_radicado}}</div>
+            </div>
+            <div class="col-xs-10 col-sm-8">
+                <div class="bigger-110 bold">N° Oficio:</div>
+                <div class="span7 red ">{{viewRad.dtsRad.numero_documento_radicado || 'ND'}}</div>
+            </div>
+            <div class="col-xs-10 col-sm-6">
+                <div class="bigger-110 bold">Tipo Documento:</div>
+                <div class="span7 red ">{{viewRad.dtsRad.nom_tipo_documental || 'ND'}}</div>
+            </div>
+            <div class="col-xs-10 col-sm-6">
+                <div class="bigger-110 bold">Fec. Lim Rta:</div>
+                <div class="span7 red ">No aplica</div>
+            </div>
+            <div class="col-xs-10 col-sm-6">
+                <div class="bigger-110 bold">Nro. folios:</div>
+                <div class="span7 red ">{{viewRad.dtsRad.numero_folios}}</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-20 label label-lg label-info arrowed-in arrowed-right"
+                style="font-size: 11pt !important">
+                <b>Remitente
+                </b>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="list-unstyled">
+                <li ng-if="viewRad.dtsRad.ide_tipo_radicado==1">
+                    <span class="primary"><b>Entidad: </b></span>
+                    <span class=" ">{{viewRad.dtsRad.nom_tercero_origen.entidad|capitalize}}</span>
+                </li>
+
+                <li ng-if="viewRad.dtsRad.ide_tipo_radicado==2">
+                    <span class="primary "><b>Dependencia: </b></span>
+                    <span ng-if="viewRad.dtsRad.ide_tipo_radicado==2">
+                        {{viewRad.dtsRad.nom_unidad_administrativa_origen|capitalize}}
+                    </span>
+                </li>
+
+                <li>
+                    <span class="primary "><b>Remite: </b></span>
+
+                    <span ng-if="viewRad.dtsRad.ide_tipo_radicado==2">
+                        {{viewRad.dtsRad.nom_funcionario_origen|capitalize}}
+                    </span>
+                    <span ng-if="viewRad.dtsRad.ide_tipo_radicado==1">
+                        {{viewRad.dtsRad.nom_tercero_origen.nombre|capitalize}}
+                    </span>
+
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xs-19 label label-lg label-success arrowed-in arrowed-right"
+                style="font-size: 11pt !important">
+                <b>Destinatario</b>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="list-unstyled ">
+                <li>
+                    <span class=" green "><b>Entidad:</b></span>
+                    <span class="" ng-if="viewRad.dtsRad.ide_tipo_radicado==2">
+                        {{viewRad.dtsRad.nom_tercero_origen.entidad || 'ND' }}
+                    </span>
+                </li>
+                <li ng-if="viewRad.dtsRad.ide_tipo_radicado==1">
+                    <span class=" green "><b>Dependencia:</b></span>
+                    <span class=" ">{{viewRad.dtsRad.nom_unidad_administrativa_destino|capitalize }}</span>
+                </li>
+                <li>
+                    <span class=" green "><b>Responsable:</b></span>
+                    <span class="" ng-if="viewRad.dtsRad.ide_tipo_radicado==2">
+                        {{viewRad.dtsRad.nom_tercero_origen.nombre }}
+                    </span>
+                    <span class="" ng-if="viewRad.dtsRad.ide_tipo_radicado==1">
+                        {{viewRad.dtsRad.nom_funcionario_destino|capitalize }}
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="hr hr8 hr-double hr-dotted"></div>
+            <div class="col-sm-20">
+                <div class="row">
+                    <div class="smaller lighter blue no-padding no-margin bigger-110 bold"><b>Asunto:</b>
+                    </div>
+                    <p class="">{{viewRad.dtsRad.asunto_documento}}</p>
+                </div>
+            </div>
+            <div class="col-sm-20">
+                <div class="row">
+                    <div class="smaller lighter blue no-padding no-margin bigger-110 bold"><b>Observaciones:</b>
+                    </div>
+                    <p class="lead">{{viewRad.dtsRad.observaciones_radicado}}</p>
+                </div>
+            </div>
+            <div class="hr hr-double hr-dotted hr18 no-padding no-margin col"></div>
+
+            <div class="col-sm-20">
+                <div class="row">
+                    <div class="smaller lighter blue no-padding no-margin bigger-110 bold"><b>Archivo</b></div>
+                    <div class="list-group">
+                        <!-- START list group item-->
+                        <div class="list-group-item">
+                            <div class="media-box">
+                                <div class="pull-left">
+                                    <span class="fa-stack">
+                                        <em class="fa fa-circle fa-stack-2x text-purple"></em>
+                                        <em class="fa fa-cloud-upload fa-stack-1x fa-inverse text-white"></em>
+                                    </span>
+                                </div>
+                                <div class="media-box-body clearfix">
+                                    <small
+                                        class="text-muted pull-right ml">{{(viewRad.dtsRad.size_file/1024).toFixed(2)}}
+                                        Mb</small>
+                                    <div class="media-box-heading"><a ng-click="viewRad.descargarDocumento()"
+                                            class="text-purple m0">{{viewRad.dtsRad.nom_archivo.split('\\')[3]}}</a>
+                                    </div>
+                                    <p class="m0">
+                                        <small><a
+                                                ng-click="viewRad.descargarDocumento()">{{viewRad.dtsRad.nom_archivo.split('\\')[3]}}</a>
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-sm-10">
+        <iframe id="conten_documents" height="400" width="100%">
+        </iframe>
+    </div>
+</div>

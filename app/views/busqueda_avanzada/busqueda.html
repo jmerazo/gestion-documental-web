@@ -1,0 +1,340 @@
+<h3>
+    Reportes - <span class="text-thin">Busqueda Avanzada</span>
+</h3>
+
+<style>
+    #estiloCelda {
+        background-color: #F2F2F2;
+        border-style: solid;
+        border-color: #A9A9A9;
+        border-width: 1px;
+    }
+
+    /*th,td {
+        background-color: #F2F2F2;
+        border-style: solid;
+        border-color: #A9A9A9;
+        border-width: 1px;
+    }*/
+</style>
+
+<div class="col-lg-20">
+    <div class="panel panel-default">
+        <div class="panel-heading bordered-bottom-1 bordered-darkgray pb">
+            <div class="row">
+                <div class="col-sm-16">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" ng-model="search" minlength="4" ng-keypress="pulsar()"
+                               required="true">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-info" ng-click="buscar()">
+                                <i class="fa fa-search"></i> Buscar
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group input-group-sm">
+                        <input type="checkbox" class="form-control" ng-model="masCampos" value="true"> Más Campos
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body " ng-class="{'whirl traditional':user.loading}">
+            <div class="table-responsive" align="center" ng-show="verTabla">
+                <table class="table table-bordered " align="center">
+
+                    <thead class="">
+                    <tr align="center">
+                        <th nowrap id="estiloCelda">
+                            Ver
+                        </th>
+                        <th nowrap id="estiloCelda">Código de Radicado
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Cod_radicado'"></i>
+                        </th>
+                        <!-- --------------------------- /////// *************** /////// --------------------------- -->
+                        <!-- --------------------------- /////// TIPO 1 CONSULTA /////// --------------------------- -->
+                        <!-- --------------------------- /////// *************** /////// --------------------------- -->
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Número
+                            Documento
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Num_documento'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Asunto
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Asunto'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Remitente
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Remite'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Elaborado por
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Elaborado_por'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Unidad
+                            Administrativa Origen
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Unidad_adtiva_origen'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Unidad
+                            Administrativa Destino
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Unidad_adtiva_destino'"></i>
+                        </th>
+
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">
+                            Funcionario Origen
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Funcionario_origen'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">
+                            funcionario Destino
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Funcionario_destino'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">
+                            Observaciones al radicado
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Observaciones_al_radicado'"></i>
+                        </th>
+                        <!-- <th nowrap id="estiloCelda" ng-hide="masCampos">Pin PQRD
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Pin_PQRD'"></i>
+                        </th> -->
+                        <th nowrap id="estiloCelda" ng-hide="masCampos">Gestión
+                            realizada
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Gestión_realizada'"></i>
+                        </th>
+                        <!-- <th nowrap id="estiloCelda" ng-hide="masCampos">Usuario
+                            que gestionó
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Usuario_que_gestiono'"></i>
+                        </th> -->
+                        <th nowrap id="estiloCelda"
+                            ng-hide="masCampos">Observaciones a la unidad documental
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Observaciones_a_la_Unidad_documental'"></i>
+                        </th>
+                        <!-- --------------------------- /////// *************** /////// --------------------------- -->
+                        <!-- --------------------------- /////// TIPO 2 CONSULTA /////// --------------------------- -->
+                        <!-- --------------------------- /////// *************** /////// --------------------------- -->
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Tipo
+                            documento
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Tipo_documental'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Medio
+                            recepción
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Medio_recepción'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Fecha
+                            del documento
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Fecha_del_documento'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Número
+                            Documento
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Núm_documento'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Fecha del
+                            radicado
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Fecha_del_radicado'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Asunto
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Asunto'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Número folios
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Núm_folios'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Fecha
+                            respuesta
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Fecha_respuesta'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Remitente
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Remite'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Elaborado por
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Elaborado_por'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Unidad
+                            administrativa origen
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Unidad_adtiva_origen'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Unidad
+                            administrativa destino
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Unidad_adtiva_destino'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">
+                            Funcionario origen
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Funcionario_origen'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">
+                            Funcionario destino
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Funcionario_destino'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">
+                            Observaciones radicado
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Observaciones_radicado'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Usuario
+                            que radicó
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Usuario_que_radicó'"></i>
+                        </th>
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Número de
+                            anexos
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Núm_de_anexos'"></i>
+                        </th>
+                        <!-- <th nowrap id="estiloCelda" ng-show="masCampos">Pin PQRD
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Pin_PQRD'"></i>
+                        </th> -->
+                        <th nowrap id="estiloCelda" ng-show="masCampos">Ide de la
+                            ventalla
+                            <i class="fa pull-right"
+                               data-ng-class="{'fa-caret-down':servBusqueda.orden,'fa-caret-up':!servBusqueda.orden}"
+                               data-ng-show="servBusqueda.cmp_orden=='Ide_de_la_ventalla'"></i>
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="resultado in resultados" ng-hide="masCampos" align="center">
+
+                        <td nowrap id="estiloCelda" class="text-center">
+                            <div class="btn-group" uib-dropdown dropdown-append-to-body>
+                                <button id="btn-append-to-to-body" type="button" class="btn btn-primary btn-sm"
+                                        uib-dropdown-toggle>
+                                    <span class="fa fa-bell"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu"
+                                    aria-labelledby="btn-append-to-to-body">
+                                    <li role="menuitem">
+                                        <a ui-sref="app.radicado({codigoRad: resultado.ide_radicado})">
+                                            <i class="fa fa-search"></i> Ver...
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td nowrap id="estiloCelda"> {{ resultado.Cod_radicado }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Num_documento }}</td>
+                        <td nowrap width="250" id="estiloCelda"> {{ resultado.Asunto }}</td>
+                        <td nowrap id="estiloCelda" ng-show="usu"> {{ resultado.Remite.nombre }}</td>
+                        <td nowrap id="estiloCelda" ng-hide="usu"> {{ resultado.Remite.entidad }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Elaborado_por }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Unidad_adtiva_origen }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Unidad_adtiva_destino }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Funcionario_origen }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Funcionario_destino }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Observaciones_al_radicado }}</td>
+                        <!-- <td nowrap id="estiloCelda"> {{ resultado.Pin_PQRD }}</td> -->
+                        <td nowrap id="estiloCelda"> {{ resultado.Gestion_realizada }}</td>
+                        <!--<td nowrap id="estiloCelda"> {{ resultado.Usuario_que_gestiono }}</td> -->
+                        <td nowrap id="estiloCelda"> {{ resultado.Observaciones_a_la_Unidad_documental }}</td>
+
+                    </tr>
+
+                    <tr ng-repeat="resultado in resultados" ng-show="masCampos">
+
+                        <td nowrap id="estiloCelda" class="text-center">
+                            <div class="btn-group" uib-dropdown dropdown-append-to-body>
+                                <button type="button" class="btn btn-primary btn-sm"
+                                        uib-dropdown-toggle>
+                                    <span class="fa fa-bell"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu"
+                                    aria-labelledby="btn-append-to-to-body">
+                                    <li role="menuitem"><a ui-sref="app.radicado({codigoRad: resultado.Cod_radicado })"><i
+                                            class="fa fa-search"></i> Ver...</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td nowrap id="estiloCelda"> {{ resultado.Cod_radicado }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Tipo_documental }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Medio_recepcion }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Fecha_del_documento }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Num_documento }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Fecha_del_radicado }}</td>
+                        <td nowrap width="250" id="estiloCelda"> {{ resultado.Asunto }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Num_folios }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Fecha_respuesta }}</td>
+                        <td nowrap id="estiloCelda" ng-show="usu"> {{ resultado.Remite.nombre }}</td>
+                        <td nowrap id="estiloCelda" ng-hide="usu"> {{ resultado.Remite.entidad }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Elaborado_por }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Unidad_adtiva_origen }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Unidad_adtiva_destino }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Funcionario_origen }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Funcionario_destino }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Observaciones_radicado }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Usuario_que_radico }}</td>
+                        <td nowrap id="estiloCelda"> {{ resultado.Num_de_anexos }}</td>
+                        <!-- <td nowrap id="estiloCelda"> {{ resultado.Pin_PQRD}}</td> -->
+                        <td nowrap id="estiloCelda"> {{ resultado.Ide_de_la_ventalla }}</td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+
+        </div>
+    </div>
+</div>

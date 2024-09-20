@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <h4 id="myModalLabel" class="modal-title pull-left">
+    </h4>
+    <input type="text" ng-model="$ctrlInfoPqt.search" placeholder="Buscar radicados contenidos en el paquete"
+           class="col-sm-4 pull-right form-control input-sm">
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-5 " ng-repeat="reg in $ctrlInfoPqt.list | filter:$ctrlInfoPqt.search">
+            <input
+                    type="checkbox"
+                    name="pritRad[]"
+                    value="{{reg}}"
+                    ng-checked="selection.findBy('pk', reg.pk) > -1"
+                    ng-click="toggleSelection(reg)"
+            > {{reg.nro_rad}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-20">
+            <hr>
+            Número de registros a imprimir
+            <div class="label label-info">{{selection.length}}</div>
+        </div>
+    </div>
+</div>
+<div ng-include="'app/views/fragmento/btn_modal_print.html'"></div>

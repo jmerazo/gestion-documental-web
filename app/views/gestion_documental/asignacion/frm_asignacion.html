@@ -1,0 +1,141 @@
+<div class="row">
+    <div class="row">
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Código radicado:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.cod_radicado}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Fecha radicado:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.fecha_radicado}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">N° Oficio:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.numero_documento_radicado || 'ND'}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Tipo Documento:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.nom_tipo_documental || 'ND'}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Fec. Lim Rta:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.fecha_limite || 'ND'}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-20 col-sm-20">
+            <div class="bigger-110 bold">Asunto:</div>
+            <div class="span7  ">{{$ctrAsig.dtsRad.asunto_documento || 'ND'}}</div>
+        </div>
+    </div>
+</div>
+<hr class="">
+<div class="row">
+    <div class="col-sm-10">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <input type="text" name="search" class="form-control input-sm" ng-model="$ctrAsig.search"
+                    placeholder="Buscar funcionario (Nombres/Apellidos)...">
+            </div>
+            <div class="panel-body">
+                <table class="table table-responsive table-striped table-bordered ">
+                    <thead class="">
+                        <tr>
+                            <th ng-click='orden("nombre_tipo")'>Nombres y apellidos
+                                <i class="fa pull-right"
+                                    data-ng-class="{'fa-caret-down':tipoexpediente.orden,'fa-caret-up':!tipoexpediente.orden}"
+                                    data-ng-show="tipoexpediente.cmp_orden=='nombre_tipo'"></i>
+                            </th>
+                            <th width="40%" class="text-center"></th>
+                            <th width="80" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="reg in $ctrAsig.dataFunc | filter:$ctrAsig.search | limitTo :$ctrAsig.posicion | limitTo: -12"
+                            ng-show="$ctrAsig.dataFuncAsignados.findBy('id',reg.id)==-1">
+                            <td>{{reg.nomapes|capitalize}}</td>
+                            <td>{{reg.nombre_dependencia|capitalize}}</td>
+
+                            <td class="text-center">
+                                <div class="action-buttons ">
+                                    <a href="" class="gray" uib-tooltip="Puede Ver/Con copia"
+                                        ng-disabled="$ctrAsig.btnCopia"
+                                        ng-click="$ctrAsig.fnAddFuncionario(reg,0)" ng-if="$ctrAsig.permAsigna(1)">
+                                        <i class="fa fa-copy fa-2x"></i>
+                                    </a>
+                                    <a href="" class="blueberry" uib-tooltip="Responsable"
+                                        ng-click="$ctrAsig.fnAddFuncionario(reg,1)" ng-if="$ctrAsig.permAsigna(1)">
+                                        <i class="fa fa-link fa-2x"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-20">
+                        <ul uib-pagination ng-change="$ctrAsig.posicion=($ctrAsig.pag_actual*10)"
+                            total-items="$ctrAsig.dataFunc.length" ng-model="$ctrAsig.pag_actual" max-size="4"
+                            items-per-page="10" class="pagination-sm pull-right" boundary-links="true"
+                            previous-text="Ant." next-text="Sig.">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-10">
+        <h4 class="page-header" style="margin: 2px 0 21px;">[{{$ctrAsig.totalResponsables}}] Responsables</h4>
+        <scrollable height="180" class="list-group">
+            <a class="list-group-item" ng-repeat="reg in $ctrAsig.dataFuncAsignados | filter:{'tipo':1} ">
+                <div class="media-box">
+                    <div class="pull-left">
+                        <img error-src="app/img/team1.jpg" src="app/img/user/02.jpg" alt="Image"
+                            class="media-box-object img-circle thumb24">
+                    </div>
+                    <div class="media-box-body clearfix">
+                        <span class="pull-right" ng-if="$ctrAsig.permAsigna(1)">
+                            <button class="btn btn-default btn-xs" type="button"
+                                ng-if="$ctrAsig.cnfUser.codFun!=reg.id && reg.canremove"
+                                ng-click="$ctrAsig.eliminarAsignacion(reg)">
+                                <i class="fa fa-trash-o red fa-2x"></i>
+                            </button>
+                        </span>
+                        <strong class="media-box-heading text-success">
+                            {{reg.nomapes|capitalize}}
+                        </strong>
+                        <p class="mb-sm">{{reg.nombre_dependencia|capitalize}}
+
+                        </p>
+                    </div>
+
+                </div>
+            </a>
+        </scrollable>
+        <h4 class="page-header" style="margin: 2px 0 21px;"> [{{$ctrAsig.totalLectores}}] Pueden Ver</h4>
+        <scrollable height="180" class="list-group">
+            <a class="list-group-item" ng-repeat="reg in $ctrAsig.dataFuncAsignados | filter:{'tipo':0} ">
+                <div class="media-box">
+                    <div class="pull-left">
+                        <img error-src="app/img/team1.jpg" src="app/img/user/02.jpg" alt="Image"
+                            class="media-box-object img-circle thumb24">
+                    </div>
+                    <div class="media-box-body clearfix">
+                        <span class="pull-right" ng-if="$ctrAsig.permAsigna(1)">
+                            <button class="btn btn-default btn-xs" type="button"
+                                ng-click="$ctrAsig.eliminarAsignacion(reg)"><i
+                                    class="fa fa-trash-o red fa-2x"></i></button>
+                        </span>
+                        <strong class="media-box-heading text-primary">
+                            {{reg.nomapes|capitalize}}
+                        </strong>
+                        <p class="mb-sm">{{reg.nombre_dependencia|capitalize}}</p>
+                    </div>
+                </div>
+            </a>
+        </scrollable>
+    </div>
+</div>

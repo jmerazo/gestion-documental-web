@@ -1,0 +1,107 @@
+<div class="modal-header">
+    Cargar docuemnto escaneado
+</div>
+<div class="modal-body">
+    <div nv-file-drop="" uploader="form.uploader" filters="queueLimit, customFilter">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-20">
+                    <div class="panel">
+                        <div class="panle-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <b>Nro. Radicaco</b><br>
+                                    {{form.dtsRadicado.cod_radicado}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <b>Fec. Radicaco</b><br>
+                                    {{form.dtsRadicado.fecha_radicado}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <b>Fec. Documento</b><br>
+                                    {{form.dtsRadicado.fec_doc}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-20">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-20">
+                                    <h4 class="page-header mt0">Seleccionar archivo</h4>
+                                    <input filestyle="" type="file" data-button-text="Archivo"
+                                           data-class-button="btn btn-default"
+                                           data-classinput="form-control inline" nv-file-select=""
+                                           uploader="form.uploader"
+                                           class="form-control"/>
+                                    <hr>
+                                    <p ng-if="!form.uploader.queue.length" class="lead text-center">
+                                        No hay archivos en cola. Agregue un archivo...
+                                    </p>
+                                    <div ng-if="form.uploader.queue.length">
+                                        <table ng-if="form.uploader.queue.length" class="table">
+                                            <thead>
+                                            <tr>
+                                                <th width="50%">Nombre</th>
+                                                <th ng-show="form.uploader.isHTML5">Size</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in form.uploader.queue">
+                                                <td>
+                                                    <strong>{{ item.file.name }}</strong>
+                                                </td>
+                                                <td ng-show="form.uploader.isHTML5" nowrap="">
+                                                    {{item.file.size/1024/1024|number:3}} MB
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-xs"
+                                                            ng-click="item.remove()">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div>
+                                <p>Progreso:</p>
+                                <div style="" class="progress progress-xs">
+                                    <div role="progressbar" ng-style="{ 'width': form.uploader.progress + '%' }"
+                                         class="progress-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" ng-click="form.uploader.uploadAll()"
+            ng-disabled="!form.uploader.getNotUploadedItems().length"
+            class="btn btn-info btn-s">
+        <span class="fa fa-upload"></span> Cargar
+    </button>
+    <button type="button" ng-click="form.uploader.cancelAll()"
+            ng-disabled="!form.uploader.isUploading" class="btn btn-warning btn-s">
+        <span class="fa fa-times-circle"></span> Cancelar
+    </button>
+    <button type="button" ng-click="cancelar()" class="btn btn-danger btn-s">
+        Cerrar
+    </button>
+</div>

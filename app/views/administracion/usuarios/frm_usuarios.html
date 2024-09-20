@@ -1,0 +1,150 @@
+<form name="frm_usuarios" novalidate ng-submit="guardarFrm(datos)" autocomplete="off">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">{{frm_title}}</h4></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="form-group " data-ng-class="{'has-error': frm_usuarios.documento.$invalid }">
+                    <label class="control-labe" for="documento">Nro documento </label>
+                    <input class="form-control input-sm" name="documento" id="documento"
+                           type="text" ng-required="true" autocomplete="off"
+                           ng-minlength="5" ng-model="datos.documento">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group " data-ng-class="{'has-error': frm_usuarios.nombres.$invalid }">
+                    <label class="control-labe" for="nombres">Nombres </label>
+                    <input class="form-control input-sm" name="nombres" id="nombres"
+                           type="text" ng-required="true" autocomplete="off"
+                           ng-minlength="2" ng-model="datos.nombres">
+                </div>
+            </div>
+            <div class="col-sm-7" data-ng-class="{'has-error': frm_usuarios.apellidos.$invalid }">
+                <div class="form-group">
+                    <label class="control-label" for="apellidos">Apellidos </label>
+                    <input class="form-control input-sm" name="apellidos" id="apellidos"
+                           type="text" ng-required="true" autocomplete="off"
+                           ng-minlength="2" ng-model="datos.apellidos">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_usuarios.dependencia_id.$invalid }">
+                    <label class="control-label" for="dependencia_id">Dependencia/Oficina</label>
+                    <select id="dependencia_id" name="dependencia_id" class="form-control input-sm" ng-required="true"
+                            ng-options="oficina.id as oficina.nom for oficina in listDependencias"
+                            ng-model="datos.dependencia_id">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group " data-ng-class="{'has-error': frm_usuarios.cargo_id.$invalid }">
+                    <label class="control-labe" for="cargo_id">Cargo</label>
+                    <select id="cargo_id" name="cargo_id" class="form-control input-sm"
+                            ng-options="cargo.id as cargo.nom for cargo in listCargos"
+                            ng-required="true"
+                            ng-model="datos.cargo_id">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_usuarios.mail_user.$invalid }">
+                    <label class="control-label" for="mail_user">Correo electrónico </label>
+                    <input class="form-control input-sm" name="mail_user" id="mail_user" ng-required="true"
+                           type="email" ng-minlength="5" ng-model="datos.mail_user" autocomplete="off">
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group ">
+                    <label class="control-labe" for="ide_rol">Rol </label>
+                    <select id="datos.ide_rol" name="ide_rol" class="form-control input-sm"
+                            ng-options="rol.id as rol.nom for rol in listRoles"
+                            ng-model="datos.ide_rol">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_usuarios.login.$invalid }">
+                    <label class="control-label" for="login">Usuario</label>
+                    <input class="form-control input-sm" name="login" id="login"
+                           type="text" ng-required="true"
+                           ng-minlength="2" ng-model="datos.login">
+                </div>
+            </div>
+
+        </div>
+        <div class="row" data-ng-if="!datos.pk">
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_usuarios.pass.$invalid }">
+                    <label class="control-label" for="pass">Contraseña </label>
+                    <input class="form-control input-sm" name="pass" id="pass"
+                           type="password" ng-minlength="5" ng-required="true"
+                           ng-model="datos.pass" autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="form-group" data-ng-class="{'has-error': frm_usuarios.pass2.$invalid }">
+                    <label class="control-label" for="pass"> Confirmar contraseña </label>
+                    <input class="form-control input-sm" name="pass2" id="pass2"
+                           type="password" ng-minlength="5" ng-required="true"
+                           ng-model="datos.pass2" autocomplete="off"
+                           ui-validate="'$value==datos.pass'" ui-validate-watch="'validator.datos.pass'">
+                </div>
+            </div>
+        </div>
+        <fieldset>
+            <legend>Configuración</legend>
+            <div class="row">
+                <div class="col-sm-20">
+                    <div class="form-group ">
+                        <label class="control-labe" for="ide_rol">Ventanilla Principal:</label>
+                        <select ng-disabled="datos.ide_rol!=3" id="dtsventanilla" name="dtsventanilla"
+                                class="form-control input-sm"
+                                ng-options="vent.id as  vent.nom for vent in ventanillas"
+                                ng-model="datos.cnf.ventanilla">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-20">
+                    <div class="form-group ">
+                        <label class="control-labe" for="solor_ver">Ver:</label>
+                        <select id="solor_ver" name="solor_ver" class="form-control input-sm"
+                                ng-model="datos.cnf.filtro" ng-disabled="datos.ide_rol==3 ">
+                            <option value="1">Solo los asignados</option>
+                            <option value="2">Todo lo correspondiente a las oficinas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-20">
+                    <div class="form-group form-group-sm">
+                        <label class="control-labe" for="">Oficinas/Dependencia/Secretarias</label>
+                        <ui-select multiple ng-model="frmUser.dtsOficinas"
+                                   theme="bootstrap"
+                                   ng-disabled="!datos.cnf.filtro || datos.cnf.filtro==1  || datos.ide_rol==3 ">
+                            <ui-select-match allow-clear="true" placeholder="Filtrar Oficina">
+                                {{$item.nom}}
+                            </ui-select-match>
+
+                            <ui-select-choices
+                                    repeat="oficina.id as oficina in listDependencias | filter:$select.search">
+                                <div ng-bind-html="oficina.nom | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>
+

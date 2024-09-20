@@ -1,0 +1,117 @@
+<div class="modal-header">
+    Cargar docuemnto escaneado
+</div>
+<form name="frmLoadAnexos" novalidate ng-submit="guardarFrm(datos)">
+    <div class="modal-body">
+        <div nv-file-drop="" uploader="frmAnexos.uploader" filters="queueLimit, customFilter">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.id_tipo_anexo.$invalid }">
+                            <label class="control-label" for="id_tipo_anexo">Tipo documento</label>
+                            <select id="id_tipo_anexo" name="id_tipo_anexo"
+                                    class="form-control input-sm" ng-required="true"
+                                    ng-options="option.ide as option.nom for option in listTipoDocs"
+                                    ng-model="datos.id_tipo_anexo">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.medio_recepcion.$invalid }">
+                            <label class="control-label" for="nro_documento">Número Documento</label>
+                            <input class="form-control input-sm" ng-minlength="2" name="nro_documento"
+                                   id="nro_documento" type="text" ng-model="datos.nro_documento"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.medio_recepcion.$invalid }">
+                            <label class="control-label" for="fecha_documento">Fecha Documento</label>
+                            <input class="form-control input-sm" ng-minlength="2" name="fecha_documento"
+                                   id="fecha_documento" type="text" ng-model="datos.fecha_documento"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-20">
+                        <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.medio_recepcion.$invalid }">
+                            <label class="control-label" for="observaciones">Observaciones</label>
+                            <textarea class="form-control input-sm" ng-minlength="2" name="observaciones"
+                                      id="observaciones" type="text" ng-model="datos.observaciones" rows="3">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-20">
+                        <div class="form-group" data-ng-class="{'has-error': frmLoadAnexos.medio_recepcion.$invalid }">
+                            <label class="control-label" for="observaciones">Seleccionar archivo</label>
+                            <input filestyle="" type="file" data-button-text="Archivo"
+                                   data-class-button="btn btn-default"
+                                   data-classinput="form-control inline" nv-file-select=""
+                                   uploader="frmAnexos.uploader"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-20">
+                        <p ng-if="!frmAnexos.uploader.queue.length" class="lead text-center">
+                            No hay archivos en cola. Agregue un archivo...
+                        </p>
+                        <div ng-if="frmAnexos.uploader.queue.length">
+                            <table ng-if="frmAnexos.uploader.queue.length" class="table">
+                                <thead>
+                                <tr>
+                                    <th width="50%">Nombre</th>
+                                    <th ng-show="frmAnexos.uploader.isHTML5">Size</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in frmAnexos.uploader.queue">
+                                    <td>
+                                        <strong>{{ item.file.name }}</strong>
+                                    </td>
+                                    <td ng-show="frmAnexos.uploader.isHTML5" nowrap="">
+                                        {{item.file.size/1024/1024|number:3}} MB
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-xs"
+                                                ng-click="item.remove()">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-20">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div>
+                                    <p>Progreso:</p>
+                                    <div style="" class="progress progress-xs">
+                                        <div role="progressbar"
+                                             ng-style="{ 'width': frmAnexos.uploader.progress + '%' }"
+                                             class="progress-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="guardarFrm(datos)"
+                ng-disabled="!frmAnexos.uploader.getNotUploadedItems().length"
+                class="btn btn-info btn-s">
+            <span class="fa fa-upload"></span> {{frmAnexos.origen!=='mdexterno' ? 'Cargar' : 'Preparar' }}
+        </button>
+
+        <button type="button" ng-click="frmAnexos.uploader.cancelAll()"
+                ng-disabled="!frmAnexos.uploader.isUploading" class="btn btn-warning btn-s">
+            <span class="fa fa-times-circle"></span> Cancelar
+        </button>
+        <button type="button" ng-click="cancelar()" class="btn btn-danger btn-s">
+            Cerrar
+        </button>
+    </div>

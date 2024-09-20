@@ -1,0 +1,228 @@
+<div class="login-container">
+    <div class="login-wrapper" ng-controller="LoginFormController as login">
+        <div class="login-panel">
+            <div class="login-logo">
+                <a href="#">
+                    <img src="app/img/gesdoc_v2.png" alt="Image" />
+                </a>
+            </div>
+            <div class="login-body">
+                <p class="login-title">INICIAR SESIÓN</p>
+                <form class="login-form" role="form" ng-submit="login.login()" name="login.loginForm" novalidate>
+                    <div class="form-group">
+                        <input type="text" name="account_email" placeholder="Usuario" autocomplete="off" ng-model="login.account.email" required />
+                        <span class="form-icon fa fa-envelope"></span>
+                        <span class="text-danger" ng-show="login.loginForm.account_email.$dirty && login.loginForm.account_email.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="account_password" placeholder="Contraseña" ng-model="login.account.password" required />
+                        <span class="form-icon fa fa-lock"></span>
+                        <span class="text-danger" ng-show="login.loginForm.account_password.$dirty && login.loginForm.account_password.$error.required">Este campo es requerido</span>
+                    </div>
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <label>
+                                <input type="checkbox" value="" name="account_remember" ng-model="login.account.remember" />
+                                Recuérdame
+                            </label>
+                        </div>
+                        <div class="forgot-password">
+                            <a class="text-muted" ui-sref="page.recover">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>                    
+                    <button class="btn-login" type="submit">Ingresar</button>
+                </form>
+                <div class="text-center mt-lg">
+                    <p>¿No tienes una cuenta? <a class="text-primary" ui-sref="page.register">Regístrate aquí</a></p>
+                </div>
+                <div class="alert alert-danger text-center" ng-show="login.authMsg">{{login.authMsg}}</div>
+            </div>
+        </div>
+        <div class="login-footer">
+            <span>&copy;</span>
+            <span ng-bind="app.year"></span>
+            <span>-</span>
+            <span ng-bind="app.name"></span>
+            <br />
+            <span ng-bind="app.description"></span>
+        </div>
+    </div>
+</div>
+
+<style scoped>
+/* Contenedor principal */
+.login-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Envoltura del login */
+.login-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: 90%;
+    border-radius: 15px;
+}
+
+/* Panel de login */
+.login-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* Logo */
+.login-logo {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.login-logo img {
+    width: 150px;
+    border-radius: 15px;
+}
+
+/* Cuerpo del login */
+.login-body {
+    padding-top: 10px;
+}
+
+.login-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Formulario */
+.login-form .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    border-radius: 15px;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-form .form-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.text-danger {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Opciones del formulario */
+/* Opciones del formulario */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Estilos para el checkbox y su label */
+.remember-me label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+}
+
+/* Restablecer estilos predeterminados del checkbox si es necesario */
+.remember-me input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    appearance: checkbox;
+}
+
+.forgot-password a {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+/* Botón de login */
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    background-color: #1167b1;
+    color: #ffffff;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #0d5a9e;
+}
+
+/* Enlace a registro */
+.text-center.mt-lg {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.text-center.mt-lg a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text-center.mt-lg a:hover {
+    text-decoration: underline;
+}
+
+/* Pie de página */
+.login-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #005BAC;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .login-wrapper {
+        width: 90%;
+    }
+}
+</style>

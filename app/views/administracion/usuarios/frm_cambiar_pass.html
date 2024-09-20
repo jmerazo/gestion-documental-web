@@ -1,0 +1,34 @@
+<form name="frmChangePass" novalidate ng-submit="changePass(ctPass.datos)" autocomplete="off">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title"><i class="fa fa-key"></i> Cambio de contraseña</h4></div>
+    </div>
+    <div class="modal-body">
+        <h4 class="media-heading">
+            {{ctPass.dtsUser.nombres|capitalize}} {{ctPass.dtsUser.apellidos|capitalize}}
+            <br>
+            <small>{{ctPass.dtsUser.nombre_rol|capitalize}}</small>
+        </h4>
+        <hr style="margin: 4px 0px; padding: 1px 0px">
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group" data-ng-class="{'has-error': frmChangePass.pass.$invalid }">
+                    <label class="control-label" for="pass">Contraseña </label>
+                    <input class="form-control input-sm" name="pass" id="pass"
+                           type="password" ng-minlength="5" ng-required="true"
+                           ng-model="ctPass.datos.pass" autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-sm-20">
+                <div class="form-group" data-ng-class="{'has-error': frmChangePass.pass2.$invalid }">
+                    <label class="control-label" for="pass2"> Confirmar contraseña </label>
+                    <input class="form-control input-sm" name="pass2" id="pass2"
+                           type="password" ng-minlength="5" ng-required="true"
+                           ng-model="ctPass.datos.pass2" autocomplete="off"
+                           ui-validate="'$value==ctPass.datos.pass'" ui-validate-watch="'validator.ctPass.datos.pass'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>

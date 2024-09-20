@@ -1,0 +1,114 @@
+<style>
+    @charset "utf-8";
+    /* CSS Document */
+    @media print {
+        /* Todas las reglas Css */
+        @page {
+            font-family: Verdana, Geneva, sans-serif;
+            margin: 10mm;
+            size: 8.5in 11in landscape;
+        }
+
+        body {
+            background: #ffffff !important;
+        }
+
+        table {
+            page-break-after: avoid;
+        }
+    }
+
+    table.no_valid:after {
+        content: "No Valido";
+        font-size: 15em;
+        color: rgba(52, 166, 214, 0.4);
+        z-index: 9999;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        -webkit-pointer-events: none;
+        -moz-pointer-events: none;
+        -ms-pointer-events: none;
+        -o-pointer-events: none;
+        pointer-events: none;
+
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+
+    .tbBorder {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Verdana, Geneva, sans-serif;
+        font-stretch: condensed;
+        color: #000000;
+    }
+
+    .tbBorder th, .tbBorder td {
+        border: 1px solid #000;
+        padding-left: 3px !important;
+    }
+
+    .tbBorder th {
+        font-weight: bold;
+    }
+
+    .tbl-header th, .tbl-header td {
+        border: 0px solid #000;
+    }
+
+    .fotn-size-min {
+        font-size: 7pt !important;
+    }
+
+</style>
+<table class="tbBorder fotn-size-min" ng-class="{'no_valid':dtsRep.tipo_reporte=='ver'}">
+    <thead>
+    <tr>
+        <th colspan="5" style="border: 0px">
+            <div ng-include="'app/views/encabezados/encabezado1.html'"></div>
+        </th>
+    </tr>
+    <tr>
+        <td style="border: 0px" colspan="5">&nbsp;</td>
+    </tr>
+    <tr>
+        <th width="160px">Radicado</th>
+        <th width="25%">Inf. Documento</th>
+        <th width="25%">Asunto</th>
+        <th width="15%">Asignado a</th>
+        <th width="20%">Firma</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reg in dtsRep.listDocRads">
+        <td width="160px">
+            <span><b>Nro Rad: </b>{{reg.nro_rad}}<br></span>
+            <span><b>Nro Doc: </b>{{reg.nro_doc}}<br></span>
+            <span><b>Fec. Doc: </b>{{reg.fec_doc}}</span>
+        </td>
+        <td width="25%">
+
+            <span ng-if="reg.dts_tercero.entidad && reg.dts_tercero.entidad.length>0"><b>Ent {{reg.tip_radicado==1 ? 'Remite' :'Destino' }}:</b> {{reg.dts_tercero.entidad|capitalize}}<br></span>
+            <span><b>Per {{reg.tip_radicado==1 ? 'Remite' :'Destino' }}:</b> {{reg.dts_tercero.nombre|capitalize}}<br></span>
+            <span><b>Fec Rta:</b> {{reg.fec_rta}}<br></span>
+            <span><b>Tip. Doc:</b> {{reg.tip_doc}}</span>
+        </td>
+        <td width="25%">{{reg.asunto}}</td>
+        <td height="15%" width="15%">
+            {{reg.fun_dest|capitalize}}<br>{{reg.ofi_dest|capitalize}}
+        </td>
+        <td width="20%"></td>
+    </tr>
+    </tbody>
+</table>

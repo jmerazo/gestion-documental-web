@@ -1,0 +1,83 @@
+<h3>
+    Generar consolidados de radicados</span>
+</h3>
+<style>
+    tr.jqgrow td {
+        overflow: hidden;
+        white-space: pre;
+    }
+</style>
+<form name="frmSearch" ng-submit="repConsolidados.exportarXls()">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-5">
+            <div class="panel panel-default">
+                <div class="panel-heading bordered-bottom-1 bordered-darkgray pb">
+
+                </div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-sm-20">
+                            <div class="form-group ">
+                                <label class="control-label" for="tipoReporte">Tipo de reporte</label>
+                                <select id="tipoReporte" data-ng-model="repConsolidados.form.reporte" class="form-control"
+                                        ng-options="reps.nom_rep for reps in repConsolidados.listReportes"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="fecha_inicio" id="fecha_inicio"
+                                           class="form-control"
+                                           data-ng-model="repConsolidados.form.fecInicio"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           ng-required="false"
+                                           ng-change="changeFecInicio(repConsolidados.fecInicio)"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha inicial"/>
+                                    <span class="input-group-btn">
+                                     <button class="btn btn-default" type="button" ng-click="open($event)">
+                                        <em class="fa fa-calendar"></em>
+                                     </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="form-group ">
+                                <div class="input-group">
+                                    <input type="text" name="fecha_final" id="fecha_final"
+                                           class="form-control "
+                                           data-ng-model="repConsolidados.form.fecFin"
+                                           uib-datepicker-popup="{{formatFecha}}"
+                                           date-disabled="disabled(date, mode)" masked=""
+                                           data-inputmask="'mask': '9999-99-99'"
+                                           is-open="openedFin" datepicker-options="dateOptionsFecLim"
+                                           ng-required="false"
+                                           close-text="Cerrar" alt-input-formats="altInputFormats"
+                                           placeholder="Fecha final"/>
+                                    <span class="input-group-btn">
+                                         <button class="btn btn-default" type="button" ng-click="openFin($event)">
+                                            <em class="fa fa-calendar"></em>
+                                         </button>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-search"></i> Filtrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

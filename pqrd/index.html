@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-20 col-sm-15 widget-container-col" id="contenForm">
+            <div class="row">
+                <div class="col-sm-20">
+                    <blockquote>
+                        <p>Bienvenidos al sistema de recepción de peticiones, quejas y reclamos de la Gobernación del
+                            Putumayo.</p>
+                    </blockquote>
+                    <div class="alert alert-info padding-4" id="msg_info_pqrd">
+                        <strong>
+                            <i class="ace-icon fa fa-info-circle"></i>
+                            Tenga en cuenta:
+                        </strong><br>
+                        Una vez diligenciada su solicitud el sistema le asignará un código el cual se enviará a su
+                        correo
+                        electrónico. Este le permitirá consultar el estado de su pqrd.<br>
+                        Recuerde que las peticiones, quejas, recursos o solicitudes serán atendidos dentro de los quince
+                        (15)
+                        días hábiles siguientes a la fecha de su radicación.
+                    </div>
+                    <div class="alert alert-success padding-4 hide" id="info_success">
+                        <strong>
+                            <i class="ace-icon fa fa-info-circle"></i>
+                            Su caso fue radicado con el número: &nbsp;
+                        </strong>
+                        <label id="lbl_nroRad" class="orange bigger-160"></label>
+                    </div>
+                    <div class="alert alert-danger padding-4 hide" id="info_error">
+                        <strong>
+                            <i class="ace-icon fa fa-times-circle"></i>
+                            Error: <label id="lblNroError"></label><br>
+                        </strong>
+                        <label id="lblMsgError" class="orange"></label>
+                    </div>
+
+                </div>
+            </div>
+            <div id="info_pqrd" class="row">
+
+            </div>
+            <div class="row" id="cntBusqueda">
+                <ul class="list-unstyled spaced">
+                    <li>
+                        <i class="ace-icon fa fa-check bigger-110 green"></i>
+                        Si desea ingresar una petición, queja, reclamo o sugerencia; presione el botón <b>"Nuevo
+                        PQRD"</b>.
+                    </li>
+                    <li>
+                        <i class="ace-icon fa fa-check bigger-110 green"></i>
+                        Si desea consultar una PQRD ingresada previamente, ingrese el número del PQRD y presione el
+                        botón
+                        <b>"Buscar"</b>.
+                    </li>
+                </ul>
+                <div class="col-xs-5 col-sm-5">
+                    <div class="widget-box  widget-color-orange">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="widget-title">
+                                <i class="ace-icon fa fa-th"></i>
+                                Radicar...
+                            </h5>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main padding-3">
+                                <div class="row">
+                                    <div class="col-sm-20">
+                                        <div class="space-10"></div>
+                                    </div>
+                                    <div class="col-sm-20">
+                                <span class="input-group-btn ">
+                                    <button type="button" id="btnAddPqr" class="btn btn-success  btn-block">
+                                        <span class="ace-icon fa fa-plus bigger-110"></span>
+                                        Nueva PQR
+                                    </button>
+                                </span>
+                                    </div>
+                                    <div class="col-sm-20">
+                                        <div class="space-10"></div>
+                                    </div>
+                                </div>
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-xs-offset-5">
+                    <div class="widget-box  widget-color-orange">
+                        <div class="widget-header widget-header-flat widget-header-small">
+                            <h5 class="widget-title">
+                                <i class="ace-icon fa fa-th"></i>
+                                Consultar...
+                            </h5>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main padding-3">
+                                <div class="row">
+                                    <form class="" name="buscar_radicado">
+                                        <div class="col-xs-20">
+                                            <div class="form-group">
+                                                <label for="nro_radicado">Número de radicado</label>
+                                                <div>
+                                                    <input class="form-control  input-sm input-sm-mejor"
+                                                           placeholder="Digite número de radicado" type="text"
+                                                           id="nro_radicado"
+                                                           name="nro_radicado">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cod_radicado">Código</label>
+                                                <div>
+                                                    <input class="form-control  input-sm input-sm-mejor"
+                                                           placeholder="Digite código asignado" type="text"
+                                                           id="cod_radicado"
+                                                           name="cod_radicado">
+
+                                                </div>
+                                            </div>
+                                            <div class="space-4"></div>
+                                            <div>
+                                                <button type="submit" class="btn btn-info btn-sm pull-right"
+                                                        id="btn_busca_pqrd">
+                                                    <i class="ace-icon fa fa-search bigger-110"></i>Buscar
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div><!-- /.widget-main -->
+                        </div><!-- /.widget-body -->
+                    </div>
+
+                </div>
+                <div class="col-sm-20 col-xs-20">
+
+
+                    <ul class="list-unstyled spaced text-justify">
+                        <li>
+                            <i class="ace-icon fa fa-share bigger-110 purple"></i>
+                            <b>La petición o derechos de petición:</b> es aquel derecho que tiene toda persona para
+                            solicitar o
+                            reclamar ante las autoridades competentes por razones de interés general o interés
+                            particular
+                            para
+                            elevar solicitudes respetuosas de información y/o consulta y para obtener pronta resolución
+                            de
+                            las
+                            mismas.
+                        </li>
+                        <li>
+                            <i class="ace-icon fa fa-share bigger-110 green"></i>
+                            <b>Queja:</b> Cualquier expresión verbal, escrita o en medio electrónica de insatisfacción
+                            con
+                            la
+                            conducta o la acción de los servidores públicos o de los particulares que llevan a cabo una
+                            función
+                            estatal y que requiere una respuesta. (Las quejas deben ser resueltas, atendidas o
+                            contestadas
+                            dentro de los quince (15) días siguientes a la fecha de su presentación.
+                        </li>
+                        <li>
+                            <i class="ace-icon fa fa-share bigger-110 red"></i>
+                            <b>Reclamo:</b> Cualquier expresión verbal, escrita o en medio electrónico, de
+                            insatisfacción
+                            referida a la prestación de un servicio o la deficiente atención de una autoridad pública,
+                            es
+                            decir,
+                            es una declaración formal por el incumplimiento de un derecho que ha sido perjudicado o
+                            amenazado,
+                            ocasionado por la deficiente prestación o suspensión injustificada del servicio. (Los
+                            reclamos
+                            deben
+                            ser resueltos, atendidos o contestados dentro de los quince (15) días siguientes a la fecha
+                            de
+                            su
+                            presentación).
+                        </li>
+                        <li>
+                            <i class="ace-icon fa fa-share bigger-110 orange"></i>
+                            <b> Sugerencia:</b> Cualquier expresión verbal, escrita o en medio electrónico de
+                            recomendación
+                            entregada por el ciudadano, que tiene por objeto mejorar el servicio que se presta en cada
+                            una
+                            de
+                            las dependencias de la Gobernación del Putumayo, racionalizar el empleo de los recursos o
+                            hacer
+                            más
+                            participativa la gestión pública. (En un término de diez (10) días se informará sobre la
+                            viabilidad
+                            de su aplicación).
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <form id="frm_Sgd_Radicar" name="frm_Sgd_Radicar">
+                <div class="row">
+                    <div class="col-sm-7 col-xs-12">
+                        <div class="alert alert-danger hide padding-3" id="messagesErrorGral">
+                            <strong>
+                                <i class="ace-icon fa fa-warning"></i>
+                                Error...
+                            </strong>
+                            <span id="messagesError"></span>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-sm-10 pull-right">
+                        <button type="button" class="btn btn-app btn-warning btn-xs pull-right btn-cancel-pqr">
+                            <i class="ace-icon fa fa-undo bigger-160"></i>
+                            Cancelar
+                        </button>
+                        <button class="btn btn-app btn-success btn-xs pull-right btn-save-pqrd">
+                            <i class="ace-icon fa fa-save bigger-160"></i>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="widget-title">
+                                    <i class="ace-icon fa fa-info"></i>
+                                    Información de Contacto
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group ">
+                                            <input type="hidden" id="codConctacto" name="codConctacto" value="">
+                                            <label class="" for="tipoIdentificacion" data-toggle="tooltip"
+                                                   title="<strong>Nombres</strong><br>Seleccione su tipo de identificación. (No es obligatorio)."
+                                                   data-placement="bottom">Tipo identificación</label>
+                                            <select class="form-control  input-sm input-sm-mejor"
+                                                    id="tipoIdentificacion"
+                                                    name="tipoIdentificacion">
+                                                <option value="9">Indeterminado</option>
+                                                <option value="1">Cédula De Ciudadanía</option>
+                                                <option value="2">Tarjeta De Identidad</option>
+                                                <option value="3">Cédula De Extranjería</option>
+                                                <option value="4">Registro Civil De Nacimiento</option>
+                                                <option value="5">Número De Identificación Personal</option>
+                                                <option value="6">Número único De Identificación Personal</option>
+                                                <option value="7">Número De Identificación Establecido Por La
+                                                    Secretaría
+                                                    De
+                                                    Educación
+                                                </option>
+                                                <option value="8">Certificado De Cabildo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group ">
+                                            <label class="" for="NumDocumento" data-toggle="tooltip"
+                                                   title="<strong>Identificación</strong><br>Ingrese su número de identificación. (No es obligatorio)"
+                                                   data-placement="bottom">Identificación</label>
+                                            <input class="form-control input-sm input-sm-mejor" id="NumDocumento"
+                                                   name="NumDocumento" type="text" value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-6 col-xs-6">
+                                            <div class="form-group ">
+                                                <label class="" for="Nombre1Persona" data-toggle="tooltip"
+                                                       title="Escriba sus nombres."
+                                                       data-placement="bottom">Nombres</label>
+                                                <input class="form-control input-sm input-sm-mejor" id="Nombre1Persona"
+                                                       name="Nombre1Persona" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            <div class="form-group ">
+                                                <label class="" for="Apellido1Persona" data-toggle="tooltip"
+                                                       title="Escriba sus apellidos"
+                                                       data-placement="bottom">Apellidos</label>
+                                                <input class="form-control  input-sm input-sm-mejor"
+                                                       id="Apellido1Persona"
+                                                       name="Apellido1Persona" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            <div class="form-group ">
+                                                <label class="" for="TelefonoPersona" data-toggle="tooltip"
+                                                       title="<strong>Teléfono</strong><br/>Escriba un número de teléfono en el que se le pueda ubicar en caso ser necesario. (No es obligatorio)"
+                                                       data-placement="bottom">Teléfono</label>
+                                                <input class="form-control  input-sm input-sm-mejor"
+                                                       id="TelefonoPersona"
+                                                       name="TelefonoPersona" type="text" value="">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10">
+                                            <div class="form-group ">
+                                                <label class="" for="DireccionPersona" data-toggle="tooltip"
+                                                       title="<strong>Dirección</strong><br/>Escriba la dirección física de notificación (No es obligatorio)">Dirección</label>
+                                                <input class="form-control  input-sm input-sm-mejor"
+                                                       id="DireccionPersona"
+                                                       name="DireccionPersona" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10">
+                                            <div class="form-group ">
+                                                <label class="" for="EmailPersona" data-toggle="tooltip"
+                                                       title="<strong>Correo electrónico</strong><br/>Escriba un correo electrónico de notificación">Correo
+                                                    electrónico</label>
+                                                <input class="form-control  input-sm input-sm-mejor" id="EmailPersona"
+                                                       name="EmailPersona" type="text" value="">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10">
+                                            <div class="form-group">
+                                                <label for="txt_dpto" data-toggle="tooltip"
+                                                       title="<strong>Departamento</strong><br/>Seleccione el departamento al que pertenece la dirección ingresada anteriormente">Departamento</label>
+                                                <select class="form-control  input-sm input-sm-mejor" id="txt_dpto"
+                                                        name="txt_dpto">
+                                                    <option value="00">Sucumbios</option>
+                                                    <option value="01">Lima</option>
+                                                    <option value="05">Antioquia</option>
+                                                    <option value="08">Atlántico</option>
+                                                    <option value="11">Bogotá D.C</option>
+                                                    <option value="13">Bolívar</option>
+                                                    <option value="15">Boyacá</option>
+                                                    <option value="17">Caldas</option>
+                                                    <option value="18">Caquetá</option>
+                                                    <option value="19">Cauca</option>
+                                                    <option value="20">Cesar</option>
+                                                    <option value="23">Córdoba</option>
+                                                    <option value="25">Cundinamarca</option>
+                                                    <option value="27">Chocó</option>
+                                                    <option value="41">Huila</option>
+                                                    <option value="44">La Guajira</option>
+                                                    <option value="47">Magdalena</option>
+                                                    <option value="50">Meta</option>
+                                                    <option value="52">Nariño</option>
+                                                    <option value="54">Norte De Santander</option>
+                                                    <option value="63">Quindio</option>
+                                                    <option value="66">Risaralda</option>
+                                                    <option value="68">Santander</option>
+                                                    <option value="70">Sucre</option>
+                                                    <option value="73">Tolima</option>
+                                                    <option value="76">Valle Del Cauca</option>
+                                                    <option value="81">Arauca</option>
+                                                    <option value="85">Casanare</option>
+                                                    <option value="86" selected>Putumayo</option>
+                                                    <option value="88">San Andrés</option>
+                                                    <option value="91">Amazonas</option>
+                                                    <option value="94">Guainía</option>
+                                                    <option value="95">Guaviare</option>
+                                                    <option value="97">Vaupés</option>
+                                                    <option value="99">Vichada</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-10">
+                                            <div class="form-group">
+                                                <label for="txt_mpio" data-toggle="tooltip"
+                                                       title="<strong>Departamento</strong><br/>Seleccione el municipio al que pertenece la dirección ingresada anteriormente">Municipio</label>
+                                                <select class="form-control input-sm input-sm-mejor" id="txt_mpio"
+                                                        name="txt_mpio">
+                                                    <option value="17086001000">Mocoa</option>
+                                                    <option value="17086219000">Colón</option>
+                                                    <option value="17086320000">Orito</option>
+                                                    <option value="17086568000">Puerto Asís</option>
+                                                    <option value="17086569000">Puerto Caicedo</option>
+                                                    <option value="17086571000">Puerto Guzmán</option>
+                                                    <option value="17086573000">Leguízamo</option>
+                                                    <option value="17086749000">Sibundoy</option>
+                                                    <option value="17086755000">San Francisco</option>
+                                                    <option value="17086757000">San Miguel</option>
+                                                    <option value="17086760000">Santiago</option>
+                                                    <option value="17086865000">Valle Del Guamuez</option>
+                                                    <option value="17086885000">Villagarzón</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div><!-- /.widget-main -->
+                            </div><!-- /.widget-body -->
+                        </div>
+                    </div>
+                    <div class="col-sm-10 col-xs-8">
+                        <div class="widget-box  widget-color-orange">
+                            <div class="widget-header widget-header-flat widget-header-small">
+                                <h5 class="widget-title">
+                                    <i class="ace-icon fa fa-th"></i>
+                                    Clasificación
+                                </h5>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main padding-1">
+                                    <div class="row">
+
+                                        <div class="col-sm-10 col-xs-20">
+                                            <div class="form-group ">
+                                                <label class="control-labe" for="IdeTipoDocumento" data-toggle="tooltip"
+                                                       title="<strong>Tipo</strong><br/>Seleccione el tipo de caso que va a presentar"
+                                                       data-placement="right">Tipo</label>
+                                                <select id="IdeTipoDocumento" name="IdeTipoDocumento"
+                                                        class="form-control  input-sm input-sm-mejor">
+                                                    <option value="2">Derecho De Petición</option>
+                                                    <option value="4">Demanda</option>
+                                                    <option value="6">Solicitud</option>
+                                                    <option value="7">Reclamo</option>
+                                                    <option value="10">Queja</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 col-xs-20">
+                                            <div class="form-group ">
+                                                <label class="control-labe" for="lblDepDestino" id="lblDepDestino"
+                                                       data-toggle="tooltip"
+                                                       title="<strong>Area/Dependencia</strong><br/>Seleccione la Oficina o dependencia a la que va dirigida su caso, si no lo sabe o no está seguro no seleccione ninguna opción.">Area/Dependencia</label>
+                                                <select class="form-control  input-sm input-sm-mejor text-capitalize"
+                                                        id="DepDestino" name="DepDestino">
+                                                    <option value="-1" selected="selected">Sin Area/Dependencia</option>
+                                                    <option value="8" class="text-capitalize">Asesoría Y Asistencia
+                                                        Técnica
+                                                    </option>
+                                                    <option value="69" class="text-capitalize">Atención Al Usuario
+                                                    </option>
+                                                    <option value="9" class="text-capitalize">Banco De Programas Y
+                                                        Proyectos
+                                                    </option>
+                                                    <option value="15" class="text-capitalize">Despacho De La
+                                                        Gobernadora
+                                                    </option>
+                                                    <option value="72" class="text-capitalize">Epidemiología</option>
+                                                    <option value="73" class="text-capitalize">ETV</option>
+                                                    <option value="49" class="text-capitalize">Gestión De Contratación
+                                                    </option>
+                                                    <option value="12" class="text-capitalize">Gestión De Control
+                                                        Disciplinario
+                                                    </option>
+                                                    <option value="11" class="text-capitalize">Gestión De Evaluación Y
+                                                        Control
+                                                    </option>
+                                                    <option value="47" class="text-capitalize">Gestión De Recursos
+                                                        Físicos
+                                                    </option>
+                                                    <option value="71" class="text-capitalize">Gestión De Tecnología De
+                                                        Información
+                                                    </option>
+                                                    <option value="16" class="text-capitalize">Gestión Del Talento
+                                                        Humano
+                                                    </option>
+                                                    <option value="4" class="text-capitalize">Gestión Documental
+                                                    </option>
+                                                    <option value="18" class="text-capitalize">Gestión Y Ordenamiento
+                                                        Territorial
+                                                    </option>
+                                                    <option value="1" class="text-capitalize">Gobernación Del Putumayo
+                                                    </option>
+                                                    <option value="19" class="text-capitalize">Indercultura</option>
+                                                    <option value="17" class="text-capitalize">Oficina De Pensiones
+                                                    </option>
+                                                    <option value="45" class="text-capitalize">Oficina De Transito Y
+                                                        Transporte
+                                                    </option>
+                                                    <option value="22" class="text-capitalize">Oficina Jurídica</option>
+                                                    <option value="48" class="text-capitalize">Oficina PDA- Plan
+                                                        Departamental
+                                                        De Aguas
+                                                    </option>
+                                                    <option value="24" class="text-capitalize">Participación Ciudadana Y
+                                                        Desarrollo Comunitario
+                                                    </option>
+                                                    <option value="75" class="text-capitalize">Prestación De Servicios -
+                                                        Calidad
+                                                    </option>
+                                                    <option value="76" class="text-capitalize">Prestación De Servicios -
+                                                        CRUE
+                                                    </option>
+                                                    <option value="74" class="text-capitalize">Prestación De Servicios -
+                                                        OYS
+                                                    </option>
+                                                    <option value="78" class="text-capitalize">Prestación De Servicios
+                                                        De
+                                                        Salud
+                                                        Y Aseguramiento
+                                                    </option>
+                                                    <option value="77" class="text-capitalize">Promoción Y Prevención
+                                                    </option>
+                                                    <option value="26" class="text-capitalize">Rentas Y Fiscalización
+                                                    </option>
+                                                    <option value="27" class="text-capitalize">Sección De Contabilidad
+                                                    </option>
+                                                    <option value="29" class="text-capitalize">Sección De Presupuesto
+                                                    </option>
+                                                    <option value="30" class="text-capitalize">Sección De Tesorería
+                                                    </option>
+                                                    <option value="46" class="text-capitalize">Secretaría De
+                                                        Competitividad
+                                                        Y
+                                                        Productividad
+                                                    </option>
+                                                    <option value="33" class="text-capitalize">Secretaría De Desarrollo
+                                                        Agropecuario Y Medio Ambiente
+                                                    </option>
+                                                    <option value="34" class="text-capitalize">Secretaría De Desarrollo
+                                                        Social
+                                                    </option>
+                                                    <option value="51" class="text-capitalize">Secretaria De Educación
+                                                        Departamental
+                                                    </option>
+                                                    <option value="36" class="text-capitalize">Secretaría De Gobierno
+                                                    </option>
+                                                    <option value="13" class="text-capitalize">Secretaría De Hacienda
+                                                    </option>
+                                                    <option value="40" class="text-capitalize">Secretaría De
+                                                        Infraestructura
+                                                    </option>
+                                                    <option value="41" class="text-capitalize">Secretaría De Planeación
+                                                    </option>
+                                                    <option value="65" class="text-capitalize">Secretaría De Salud
+                                                    </option>
+                                                    <option value="43" class="text-capitalize">Secretaría De Servicios
+                                                        Administrativos
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.widget-main -->
+                            </div><!-- /.widget-body -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 col-xs-20">
+                        <div class="widget-box transparent">
+                            <div class="widget-header widget-header-flat widget-header-small">
+                                <h5 class="widget-title">
+                                    <i class="ace-icon fa fa-comments"></i>
+                                    Detalles del PQR
+                                </h5>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main padding-1">
+                                    <div class="row">
+                                        <div class="col-sm-20">
+                                            <div class="form-group ">
+                                                <label class="control-labe" for="AsuntoDocumento" data-toggle="tooltip"
+                                                       title="<strong>Asunto/Referencia</strong><br/>Indique el asunto o la referencia del caso que va a presentar ">Asunto/Referencia</label>
+                                                <input class="form-control input-sm" id="AsuntoDocumento"
+                                                       name="AsuntoDocumento"
+                                                       type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-20">
+                                            <div class="form-group ">
+                                                <label class="control-labe" for="NotasDocumento" data-toggle="tooltip"
+                                                       title="<strong>Descripción</strong><br/>Escriba los hechos que motivan la solicitud y su pretensión concreta.">Descripción</label>
+                                                <textarea class="form-control  input-sm" rows="10" id="NotasDocumento"
+                                                          name="NotasDocumento"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.widget-main -->
+                            </div><!-- /.widget-body -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-20">
+                        <div class="pull-left red">
+                            “Los campos de color rojo son obligatorios.”
+                        </div>
+                        <button class="btn btn-app btn-warning btn-xs pull-right btn-cancel-pqr">
+                            <i class="ace-icon fa fa-undo bigger-160"></i>
+                            Cancelar
+                        </button>
+                        <button class="btn btn-app btn-success btn-xs pull-right btn-save-pqrd">
+                            <i class="ace-icon fa fa-save bigger-160"></i>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<div class="row">
+    <div class="row">
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Codigo radicado:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.cod_radicado}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Fecha radicado:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.fecha_radicado}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">N° Oficio:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.numero_documento_radicado || 'ND'}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Tipo Documento:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.nom_tipo_documental || 'ND'}}</div>
+        </div>
+        <div class="col-xs-10 col-sm-4">
+            <div class="bigger-110 bold">Fec. Lim Rta:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.fecha_limite}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-20 col-sm-20">
+            <div class="bigger-110 bold">Asunto:</div>
+            <div class="span7 ">{{ctrseg.dtsRad.asunto_documento || 'ND'}}</div>
+        </div>
+    </div>
+</div>
+<hr class="">
+<form name="frmSeguimiento" ng-submit="ctrseg.fnSaveGestion(datos)" novalidate>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-dark">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        Eventos
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <scrollable height="260" class="list-group">
+                        <a class="list-group-item" ng-repeat="reg in ctrseg.servicio.dtsPagina">
+                            <div class="media-box">
+                                <div class="pull-left">
+                                    <img error-src="app/img/team1.jpg" src="app/img/user/02.jpg" alt="Image"
+                                         class="media-box-object img-circle thumb32"/>
+                                </div>
+                                <div class="media-box-body clearfix">
+                                    <small class="pull-right">
+                                        {{reg.feccha_gestion.trim()}}
+                                        &nbsp;
+                                        <i class="fa fa-paperclip fa-2x blueberry"
+                                           uib-popover="{{reg.raw_json.observaciones}}"
+                                           popover-title="{{reg.raw_json.raw_json_file.client_name}}"
+                                           popover-append-to-body="true" popover-trigger="'mouseenter'"
+                                           ng-if="reg.ide_anexo" ng-click="ctrseg.verDocumento(reg)"></i>
+                                    </small>
+                                    <strong class="media-box-heading text-primary">
+                                        {{reg.nom_usuario | cortarTexto:20}}
+                                    </strong>
+                                    <br>
+                                    <p class="mb-sm text-justify">
+                                        <small style="white-space: pre-line;">{{reg.text_gestion}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </scrollable>
+                    <!-- END list group-->
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-20">
+                            <ul uib-pagination ng-change="ctrseg.pageChanged()"
+                                total-items="ctrseg.servicio.totRegistros" ng-model="ctrseg.servicio.pag_actual"
+                                max-size="4" items-per-page="ctrseg.servicio.items_por_page"
+                                class="pagination-sm pull-right" boundary-links="true" previous-text="Ant."
+                                next-text="Sig."></ul>
+                            <div class="btn-group btn-group-sm pull-right">
+                                <button type="button" class="btn btn-default" ng-click="ctrseg.reloadGrid()"><i
+                                        class="fa fa-refresh"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-20  col-xs-20">
+                            <div id="panelPortlet2" class="panel panel-primary" style="opacity: 1;">
+                                <div class="panel-heading portlet-handler ui-sortable-handle">INFORMACIÓN
+                                    <paneltool tool-collapse="tool-collapse" class="pull-right"
+                                               ng-init="panelPortlet2=false">
+                                        Minimizar / Maximizar <a href="" panel-collapse=""
+                                                                 uib-tooltip="Minimizar / Maximizar"
+                                                                 ng-click="panelPortlet2 = !panelPortlet2"
+                                                                 class="ng-scope">
+                                        <em ng-show="panelPortlet2" class="fa fa-plus ng-no-animation ng-hide"></em>
+                                        <em ng-show="!panelPortlet2" class="fa fa-minus ng-no-animation"></em>
+                                    </a>
+                                    </paneltool>
+                                </div>
+                                <div uib-collapse="panelPortlet2" class="panel-wrapper in collapse"
+                                     aria-expanded="false" aria-hidden="false" style="height: auto;">
+                                    <div class="panel-body">
+                                        <p>
+                                            Coloque aquí todas las observaciones, comentarios, detalles y documentos
+                                            anexos relacionados
+                                            con el documento radicado que considere necesarios, no hay límite de anexos
+                                            relacionados.
+                                            Todo lo que coloque en esta pestaña será la evidencia de la gestión
+                                            realizada sobre el documento radicado.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group"
+                                 data-ng-class="{'has-error': frmSeguimiento.obs_seguimiento.$invalid }">
+                                <label class="control-label"
+                                       for="obs_seguimiento">Comentarios/Detalles/Observaciones</label>
+                                <textarea class="form-control input-sm" ng-minlength="15" ng-required="true"
+                                          name="obs_seguimiento" id="obs_seguimiento" type="text"
+                                          ng-model="datos.text_gestion" rows="6">
+                        </textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-20 col-xs-20 ">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-xs-7  pv-sm">
+                                        <a class="btn btn-sm btn-default" ng-click="ctrseg.addAnexo(ctrseg.dtsRad)">
+                                            <em class="fa fa-cloud-upload blue fa-3x"></em>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-13 pv-sm">
+                                        <div class="h3 mt0">
+                                            {{(ctrseg.infoAnexo.file.size / 1024 / 1024 | number:2) || '0.0'
+                                            }} MB
+                                        </div>
+                                        <div class="text-capitalize" tooltip-append-to-body="true"
+                                             uib-tooltip="{{ctrseg.infoAnexo.file.name}}">
+                                            {{ctrseg.infoAnexo.file.name | cortarTexto:20}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-14" data-ng-class="{'has-error': frmSeguimiento.ide_estado.$invalid }">                
+                            <div class="radio c-radio">
+                                <label>
+                                    <input type="radio" name="ide_estado" ng-model="datos.ide_estado" value="14"
+                                           required/>
+                                    <span class="fa fa-circle"></span>En espera de información
+                                </label>
+                            </div>
+                            <div class="radio c-radio">
+                                <label>
+                                    <input type="radio" name="ide_estado" ng-model="datos.ide_estado" value="11"
+                                           required/>
+                                    <span class="fa fa-circle"></span>Documento Respondido
+                                </label>
+                            </div>
+                            <div>
+                                <span class="rta__correo">Se enviara respuesta al correo: {{ctrseg.dtsRad.mail_respuesta}}</span>
+                            </div>
+                            <hr style="margin: 4px">
+                            <div class="radio c-radio">
+                                <label>
+                                    <input type="radio" name="ide_estado" ng-model="datos.ide_estado" value="10"
+                                           required/>
+                                    <span class="fa fa-circle"></span>Devolver por mala asignación
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" name="mail_respuesta" ng-model="datos.mail_respuesta" ng-init="datos.mail_respuesta = ctrseg.dtsRad.mail_respuesta">
+                        <input type="hidden" name="cod_radicado" ng-model="datos.cod_radicado" ng-init="datos.cod_radicado = ctrseg.dtsRad.cod_radicado">
+                        <input type="hidden" name="fecha_radicado" ng-model="datos.fecha_radicado" ng-init="datos.fecha_radicado = ctrseg.dtsRad.fecha_radicado">
+                        <input type="hidden" name="asunto_documento" ng-model="datos.asunto_documento" ng-init="datos.asunto_documento = ctrseg.dtsRad.asunto_documento">
+                        <input type="hidden" name="fecha_respuesta" ng-model="datos.fecha_respuesta" ng-init="datos.fecha_respuesta = ctrseg.dtsRad.fecha_respuesta">
+                        <input type="hidden" name="nom_unidad_administrativa_destino" ng-model="datos.nom_unidad_administrativa_destino" ng-init="datos.nom_unidad_administrativa_destino = ctrseg.dtsRad.nom_unidad_administrativa_destino">
+                        <input type="hidden" name="observaciones_radicado" ng-model="datos.observaciones_radicado" ng-init="datos.observaciones_radicado = ctrseg.dtsRad.observaciones_radicado">
+
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-save"></i>
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

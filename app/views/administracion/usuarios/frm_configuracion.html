@@ -1,0 +1,34 @@
+<form name="frm_usuarios" novalidate ng-submit="frmUsuConfig(dts)" autocomplete="off">
+    <div class="modal-header">
+        <h4 id="myModalLabel" class="modal-title">Configuración de usuario</h4></div>
+    </div>
+    <div class="modal-body">
+        <h4 class="media-heading">{{cnf.dtsUser.nombres|capitalize}} {{cnf.dtsUser.apellidos|capitalize}}<br>
+            <small>{{cnf.dtsUser.nombre_rol|capitalize}}</small>
+        </h4>
+        <hr style="margin: 4px 0px; padding: 1px 0px">
+        <div class="row">
+            <div class="col-sm-20">
+                <div class="form-group ">
+                    <label class="control-labe" for="ide_rol">Ventanilla Principal:</label>
+                    <select id="ide_rol" name="ide_rol" class="form-control input-sm"
+                            ng-options="vent.nom for vent in cnf.ventanillas"
+                            ng-model="dts.ventanilla">
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-20">
+                <div class="form-group ">
+                    <label class="control-labe" for="solor_ver">Ver:</label>
+                    <select id="solor_ver" name="solor_ver" class="form-control input-sm">
+                        <option value="1">Solo los asignados</option>
+                        <option value="2">Todo lo correspondiente a la oficina</option>
+                        <option value="3">Todo lo correspondiente a la secretaría</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'app/views/fragmento/botones_formularios_gral.html'"></div>
+</form>
